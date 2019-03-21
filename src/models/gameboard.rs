@@ -93,7 +93,7 @@ pub fn analyze_slice_of_6(slice: &[Stone], current_stone: Stone, other_stone: St
 
 	match slice {
 		[Stone::NOPE, s1, s2, s3, s4, Stone::NOPE] => {
-			match (s1,s2,s3,s4) {
+			match (s1, s2, s3, s4) {
 				(s1, s2, s3, s4) if *s1 == current_stone && s1 == s2 && s1 == s3 && s1 == s4 => { /*print!("ALIGN4");*/ (40, 0)},		// align 4
 				(s1, s2, s3, Stone::NOPE) if *s1 == current_stone && s1 == s2 && s1 == s3 => { /*print!("ALIGN3");*/ (30, 0)},		// align 3
 				(s1, s2, Stone::NOPE, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => { /*print!("ALIGN3");*/ (30, 0)},		// align 3
@@ -225,12 +225,12 @@ impl Gameboard {
 	}
 
 	pub fn make_move(&mut self, x: usize, y: usize, stone: Stone) -> bool {
-		if self.cells[x][y] == Stone::NOPE && !self.check_double_tree(x, y, stone) {
-			let other_stone = match stone {
-					Stone::WHITE => Stone::BLACK,
-					Stone::BLACK => Stone::WHITE,
-					_ => Stone::WHITE,
-				};
+		if self.cells[x][y] == Stone::NOPE { //&& !self.check_double_tree(x, y, stone) {
+			// let other_stone = match stone {
+			// 		Stone::WHITE => Stone::BLACK,
+			// 		Stone::BLACK => Stone::WHITE,
+			// 		_ => Stone::WHITE,
+			// 	};
 			self.cells[x][y] = stone;
 			self.update_possible_move(x, y);
 			// println!("\n-------------------");
@@ -241,7 +241,7 @@ impl Gameboard {
 			self.value = val.0;
 			if val.1 > 0 {
 
-				self.apply_capture(x, y, stone, other_stone, val.1); //				       APPLY CAPTURE !!!!!!!!!
+				self.apply_capture(x, y, stone, stone.opposant(), val.1); //				       APPLY CAPTURE !!!!!!!!!
 				match stone {
 					Stone::WHITE => self.white_captures += val.1,
 					Stone::BLACK => self.black_captures += val.1,
