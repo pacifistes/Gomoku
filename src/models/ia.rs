@@ -1,14 +1,18 @@
 use crate::models::gameboard::*;
+use std::collections::HashMap;
+
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct IA {
     pub depth: u8,
+    pub stone: Stone,
 }
 
 impl IA {
-    pub fn new(depth: u8) -> IA {
+    pub fn new(depth: u8, stone: Stone) -> IA {
         IA {
             depth,
+			stone
         }
     }
 }
@@ -19,21 +23,46 @@ impl IA {
         false
     }
 
-    pub fn eval(&self, gameboard: &Gameboard) -> isize {
+    pub fn eval(&self, gameboard: &Gameboard, stone: Stone) -> isize {
 		// println!("\n\n_____________");
 		// gameboard.printboard();
-		// println!("eval: {}", gameboard.value);
+		if stone == self.stone {
+			println!("eval: {}", gameboard.value);
+			gameboard.value
+		} else {
+			println!("eval: {}", -gameboard.value);
+			-gameboard.value
+		}
 
-		-gameboard.value
     }
+
+    // pub fn negascout2(&self, state: &mut Gameboard, stone: Stone, depth: u8, mut alpha: isize, beta: isize) -> isize {
+	// 	let mut all_eval: Vec<((usize, usize), isize)> = Vec::new();
+    //     if depth == 0 || self.is_victory() {
+    //         return self.eval(state, stone);
+    //     }
+
+
+	// 	42
+	// }
 
     /// si alpha < current < beta, alors current est la valeur minimax
     /// si current <= alpha, alors la vraie valeur minimax m vérifie : m <= current <= alpha
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
+// <<<<<<< Updated upstream
+// =======
+// 	/// 
+// 	/// 
+// >>>>>>> Stashed changes
 
     pub fn negascout(&self, state: &mut Gameboard, stone: Stone, depth: u8, mut alpha: isize, beta: isize) -> isize {
+		let mut all_eval: Vec<((usize, usize), isize)> = Vec::new();
+
+
+		println!("negascout: (depth: {}) (alpha: {}), (beta: {}) (stone: {:?})", depth, alpha, beta, stone);
+		state.printboard();
         if depth == 0 || self.is_victory() {
-            return self.eval(state);
+            return self.eval(state, stone);
         }
         let mut best_move: Option<(usize, usize)> = None;
         let mut current = isize::from(std::i16::MIN);
@@ -47,8 +76,16 @@ impl IA {
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
             let mut score = -self.negascout(&mut new_state, stone.opposant(), depth - 1, -(alpha + 1), -alpha);
+			println!("1_SCORE: {}", score);
+			all_eval.push((new_move, score));
+
             if score > alpha && score < beta {
                 score = -self.negascout(&mut new_state, stone.opposant(), depth - 1, -beta, -alpha);
+				println!("2_SCORE: {}", score);
+
+	            // new_state.make_move(new_move.0, new_move.1, stone);
+				all_eval.push((new_move, score));
+
             }
             if score > current {
                 current = score;
@@ -57,9 +94,11 @@ impl IA {
                 if alpha >= beta {
                     break;
                 }
-            }
+			}
             last_move = (new_move.0 + 1, new_move.1);
         }
+		print_all_state(all_eval, state, depth);
+
         state.selected_move = best_move;
         alpha
     }
@@ -146,31 +185,31 @@ impl IA {
     // }
 }
 
-pub fn print_all_state(all_eval: Vec<((usize, usize), isize)>, state: &Gameboard) {
+pub fn print_all_state(all_eval: Vec<((usize, usize), isize)>, state: &Gameboard, depth: u8) {
 	let mut print: bool;
-	print!("ALL STATES: \n   ");
+	print!("ALL STATES: ({}) \n   ", depth);
 	for x in 0..SIZE {
-		print!("{0: <2} ", x);
+		print!("{0: <4}", x);
 	}
 	println!();
 	for y in 0..SIZE {
-			print!("{0: <2} ", y);
+			print!("{0: <4}", y);
 			for x in 0..SIZE {
 				print = false;
 				'geteval: for elem in &all_eval {
 					if elem.0 == (x as usize, y as usize) {
-						print!("{0: <3}", elem.1);
+						print!("{0: <4}", elem.1);
 						print = true;
 						break 'geteval;
 					}
 				}
 				if !print {
 					if state.cells[x][y] == Stone::WHITE {
-						print!(" {}[7;49;97mW{}[0m ", 27 as char, 27 as char);
+						print!("{}[7;49;97mW{}[0m   ", 27 as char, 27 as char);
 					} else if state.cells[x][y] == Stone::BLACK {
-						print!(" {}[7;49;90mB{}[0m ", 27 as char, 27 as char);
+						print!("{}[7;49;90mB{}[0m   ", 27 as char, 27 as char);
 					} else {
-						print!(".  ");
+						print!(".   ");
 					}
 				}
 			}

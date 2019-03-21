@@ -92,21 +92,21 @@ pub fn eval_value(cells: &[[Stone; SIZE]; SIZE], x_orig: isize, y_orig: isize, s
 pub fn analyze_slice_of_6(slice: &[Stone], current_stone: Stone, other_stone: Stone) -> (isize, usize) {
 
 	match slice {
-		test if test[0] == current_stone && test[0] == test[1] && test[0] == test[2] && test[0] == test[3] && test[0] == test[4] => (42, 0),
-		[_, s1, s2, s3, s4, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
-		[s1, s2, s3, s4, _, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
-		[_, _, s1, s2, s3, s4] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
 		[Stone::NOPE, s1, s2, s3, s4, Stone::NOPE] => {
 			match (s1,s2,s3,s4) {
-				(s1, s2, s3, s4) if *s1 == current_stone && s1 == s2 && s1 == s3 && s1 == s4 => (4, 0),		// align 4
-				(s1, s2, s3, Stone::NOPE) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, s2, Stone::NOPE, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, Stone::NOPE, s2, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => (1, 0),			// align 3
-				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => (1, 0),			// align 2
+				(s1, s2, s3, s4) if *s1 == current_stone && s1 == s2 && s1 == s3 && s1 == s4 => { /*print!("ALIGN4");*/ (40, 0)},		// align 4
+				(s1, s2, s3, Stone::NOPE) if *s1 == current_stone && s1 == s2 && s1 == s3 => { /*print!("ALIGN3");*/ (30, 0)},		// align 3
+				(s1, s2, Stone::NOPE, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => { /*print!("ALIGN3");*/ (30, 0)},		// align 3
+				(s1, Stone::NOPE, s2, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => { /*print!("ALIGN3");*/ (30, 0)},		// align 3
+				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => { /*print!("ALIGN3");*/ (10, 0)},			// align 3
+				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => { /*print!("ALIGN2");*/ (10, 0)},			// align 2
 				_ => (0, 0),
 			}
 		}
+		align5 if align5[0] == current_stone && align5[0] == align5[1] && align5[0] == align5[2] && align5[0] == align5[3] && align5[0] == align5[4] => { /*print!("ALIGN5"); */(420, 0)},
+		[_, s1, s2, s3, s4, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => { /*print!("CAPTURE");*/ (20,1) },// capture
+		[s1, s2, s3, s4, _, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => { /*print!("CAPTURE");*/ (20,1) },// capture
+		[_, _, s1, s2, s3, s4] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => { /*print!("CAPTURE");*/ (20,1) },// capture
 		_ => (0, 0),
 	}
 }
@@ -117,6 +117,7 @@ pub fn eval_line(slice: &[Stone], current_stone: Stone, other_stone: Stone) -> (
 	let mut len = slice.len();
 	if len < 5 { return (0, 0); }
 
+	// println!("eval_line: {:?}", slice);
 	while len > 6 {
 		let eval = analyze_slice_of_6(&slice[len-6..len], current_stone, other_stone);
 		value+=eval.0;
@@ -240,7 +241,7 @@ impl Gameboard {
 			self.value = val.0;
 			if val.1 > 0 {
 
-				// self.apply_capture(x, y, stone, other_stone, val.1); //				       APPLY CAPTURE !!!!!!!!!
+				self.apply_capture(x, y, stone, other_stone, val.1); //				       APPLY CAPTURE !!!!!!!!!
 				match stone {
 					Stone::WHITE => self.white_captures += val.1,
 					Stone::BLACK => self.black_captures += val.1,

@@ -2,6 +2,8 @@ use crate::models::game::Player;
 use crate::models::game::*;
 use crate::models::ia::*;
 use crate::traits::view_model::*;
+use crate::models::gameboard::Stone;
+
 use std::any::Any;
 
 
@@ -106,9 +108,9 @@ impl GameBuilder {
     }
 
     pub fn build(&self) -> Game {
-        let ia_new = |depth: f32| -> Player {
+        let ia_new = |depth: f32, stone: Stone| -> Player {
             Player::Ia {
-                ia: IA::new(depth as u8),
+                ia: IA::new(depth as u8, stone),
                 nbr_capture: 0 as u8,
             }
         };
@@ -121,12 +123,12 @@ impl GameBuilder {
 
         let black_player: Player = match self.mode_index {
             0 | 1 => human_new(),
-            _ => ia_new(self.first_ia_depth),
+            _ => ia_new(self.first_ia_depth, Stone::BLACK),
         };
         let white_player: Player = match self.mode_index {
             0 | 2 => human_new(),
-            1 => ia_new(self.first_ia_depth),
-            _ => ia_new(self.second_ia_depth),
+            1 => ia_new(self.first_ia_depth, Stone::WHITE),
+            _ => ia_new(self.second_ia_depth, Stone::WHITE),
         };
         if self.game.is_some() {
             Game::new_with_game(self.game.clone().unwrap(), black_player, white_player, self.game_modes[self.mode_index])
