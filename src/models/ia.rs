@@ -120,8 +120,10 @@ impl IA {
 
 		let mut value: isize = 0;
 		if state.black_captures >= 10 {
+			println!("BLACK WIN BY CAPTURE!");
 			value = 10000000;
 		} else if state.white_captures >= 10 {
+			println!("WHITE WIN BY CAPTURE!");
 			value = -10000000;
 		}
 		else {
@@ -138,7 +140,6 @@ impl IA {
 			all.extend(all_diag_u);
 			all.extend(all_diag_u2);
 			all.retain(|&elem| elem != 0);
-
 
 			for e in all {
 				value += evale_one_line(e, stone);
@@ -158,18 +159,26 @@ impl IA {
 	/// 	/// s6 alpha < current < beta, alor:::: est la valeur minimax
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
     pub fn negascout(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
+		println!("negascout ({})", depth);
         if depth == 0 || state.is_finish() {
+			if state.selected_move == None {
+				println!("state.selected_move == NONE, depth: {}", depth);
+			}
             return self.eval(state, stone);
         }
+
         let mut best_move: Option<(usize, usize)> = None;
         let mut current = isize::from(std::i16::MIN);
         let mut last_move = (0, 0);
+		let mut test = 0;
         loop {
+			println!("negascout loop({}/test: {}, best_move: {:?})", depth, test, best_move);
             state.next_move(last_move.0, last_move.1);
             let new_move = match state.selected_move {
                 Some(new_move) => new_move,
                 None => break,
             };
+			println!("negascout new_move({}/test: {})", depth, test);
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
             let mut score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -(alpha + 1), -alpha);
@@ -185,6 +194,7 @@ impl IA {
                 }
             }
             last_move = (new_move.0 + 1, new_move.1);
+			test +=1;
         }
         state.selected_move = best_move;
         alpha

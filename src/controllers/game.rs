@@ -11,6 +11,8 @@ use conrod::UiCell;
 use conrod::widget::id::Id;
 use std::collections::HashMap;
 
+use std::process;
+
 pub enum GameEvent {
 	Grid(fn(&mut Game, usize, usize)),
 	ButtonUndo(fn(&mut Game)),
@@ -83,13 +85,13 @@ impl GameViewController for GameController {
 			let best_move = if model.all_state.len() == 1 {
 				let position = SIZE / 2;
 				Some((position, position))
-			}
+			}	
 			else {
-				ia.negascout(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
+			ia.negascout(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
 				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
 				model.state.selected_move
 			};
-			match best_move{
+			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
 						model.all_state.push(model.state.clone());
@@ -97,7 +99,13 @@ impl GameViewController for GameController {
 						model.update_last_move_time();
 					}
 				}
-				None => print_all_state(&model.all_state),//println!("banana"),
+				None => {
+						println!("model.all_state.len(): {}", model.all_state.len());
+						print_all_state(&model.all_state);
+						// dbg!(&model);
+						process::exit(0x0100);
+					},
+					// ,//println!("banana"),
 			};
 			is_human = false;
 		}
