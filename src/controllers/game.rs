@@ -87,7 +87,7 @@ impl GameViewController for GameController {
 				Some((position, position))
 			}	
 			else {
-			ia.negascout(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
+			ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i32::MIN + 1) as isize, std::i32::MAX as isize);
 				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
 				model.state.selected_move
 			};
@@ -99,13 +99,12 @@ impl GameViewController for GameController {
 						model.update_last_move_time();
 					}
 				}
-				None => {
-						println!("model.all_state.len(): {}", model.all_state.len());
-						print_all_state(&model.all_state);
+				None => println!("banana"),
+				// {
+						// print_all_state(&model.all_state);
 						// dbg!(&model);
-						process::exit(0x0100);
-					},
-					// ,//println!("banana"),
+						// process::exit(0x0100);
+					// },
 			};
 			is_human = false;
 		}
