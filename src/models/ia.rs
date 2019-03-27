@@ -2,7 +2,7 @@ use crate::models::gameboard::*;
 use std::collections::HashSet;
 use std::cmp::min;
 use std::cmp::max;
-
+use std::process::exit;
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct IA {
     pub depth: u8,
@@ -149,11 +149,12 @@ impl IA {
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
     pub fn negascout(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
         if depth % 2 == 0 && transposition_table.contains(state) {
+			state.value = transposition_table.get(state).unwrap().value;			
 			return state.value
 		}
 		if depth == 0 || state.is_finish() {
 			state.value = self.eval(state, stone);
-			println!("VALUE: {}", state.value);
+			// println!("VALUE: {}", state.value);
 			if depth % 2 == 0 {
 				transposition_table.insert(state.clone());
 			}
@@ -161,7 +162,7 @@ impl IA {
         }
 
         let mut best_move: Option<(usize, usize)> = None;
-        let mut current = (std::i64::MIN +1) as isize;
+        let mut current = (std::i64::MIN + 1) as isize;
         let mut last_move = (0, 0);
         loop {
             state.next_move(last_move.0, last_move.1);
@@ -191,6 +192,7 @@ impl IA {
 
     pub fn alphabeta(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
         if depth % 2 == 0 && transposition_table.contains(state) {
+			state.value = transposition_table.get(state).unwrap().value;
 			return state.value
 		}
 		if depth == 0 || state.is_finish() {
