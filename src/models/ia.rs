@@ -1,4 +1,7 @@
 use crate::models::gameboard::*;
+use std::collections::HashSet;
+use std::cmp::min;
+use std::cmp::max;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct IA {
@@ -109,8 +112,8 @@ pub fn evale_one_line(mut line: u64) -> isize {
 impl IA {
     pub fn eval(&self, state: &Gameboard, stone: u8) -> isize {
 
-		// println!("\n\n______ EVAL _______");
-		// printboard!(&state.cells);
+		println!("\n\n______ EVAL _______");
+		printboard!(&state.cells);
 		if (state.black_captures >= 10 && stone == WHITE) || (state.white_captures >= 10 && stone == BLACK){
 			-10000000
 		} else if state.white_captures >= 10  && stone == WHITE || state.black_captures >= 10  && stone == BLACK {
@@ -131,23 +134,30 @@ impl IA {
 			all.retain(|&elem| elem != 0);
 
 			let value: isize = all.iter().map(|&e| evale_one_line(e)).sum();
-			if stone == WHITE {
-				-value
-			} else {
+			// if stone == WHITE {
+				// -value
+			// } else {
 				value
-			}
+			// }
 		}
 	}
 }
 
 impl IA {
-	/// s6 alpha < current < beta, alors current est la valeur minimax
+	/// si alpha < current < beta, alors current est la valeur minimax
     /// si current <= alpha, alors la vraie valeur minimax m vérifie : m <= current <= alpha
-	/// 	/// s6 alpha < current < beta, alor:::: est la valeur minimax
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
-    pub fn negascout(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
-        if depth == 0 || state.is_finish() {
-            return self.eval(state, stone);
+    pub fn negascout(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
+        if depth % 2 == 0 && transposition_table.contains(state) {
+			return state.value
+		}
+		if depth == 0 || state.is_finish() {
+			state.value = self.eval(state, stone);
+			println!("VALUE: {}", state.value);
+			if depth % 2 == 0 {
+				transposition_table.insert(state.clone());
+			}
+            return state.value;
         }
 
         let mut best_move: Option<(usize, usize)> = None;
@@ -161,9 +171,9 @@ impl IA {
             };
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
-            let mut score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -(alpha + 1), -alpha);
+            let mut score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -(alpha + 1), -alpha);
             if score > alpha && score < beta {
-                score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha);
+                score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha);
             }
             if score > current {
                 current = score;
@@ -179,9 +189,16 @@ impl IA {
         alpha
     }
 
-    pub fn alphabeta(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
-        if depth == 0 || state.is_finish() {
-            return self.eval(state, stone);
+    pub fn alphabeta(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
+        if depth % 2 == 0 && transposition_table.contains(state) {
+			return state.value
+		}
+		if depth == 0 || state.is_finish() {
+			state.value = self.eval(state, stone);
+			if depth % 2 == 0 {
+				transposition_table.insert(state.clone());
+			}
+            return state.value;
         }
         let mut best_move: Option<(usize, usize)> = None;
         let mut current = isize::from(std::i16::MIN);
@@ -194,7 +211,11 @@ impl IA {
             };
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
-            let score = -self.alphabeta(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha);
+// <<<<<<< HEAD
+//             let score = -self.alphabeta(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha);
+// =======
+            let mut score = -self.alphabeta(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha);
+// >>>>>>> master
             if score > current {
                 current = score;
                 best_move = Some(new_move);

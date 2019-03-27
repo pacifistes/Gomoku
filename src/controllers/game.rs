@@ -10,6 +10,7 @@ use crate::models::game::*;
 use conrod::UiCell;
 use conrod::widget::id::Id;
 use std::collections::HashMap;
+use std::collections::HashSet;
 
 use std::process;
 
@@ -87,8 +88,9 @@ impl GameViewController for GameController {
 				Some((position, position))
 			}	
 			else {
-			ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i32::MIN + 1) as isize, std::i32::MAX as isize);
-				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
+				let mut transposition_table: HashSet<Gameboard> = HashSet::new();
+				ia.negascout(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
+				// ia.alphabeta(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
 				model.state.selected_move
 			};
 			match best_move {
