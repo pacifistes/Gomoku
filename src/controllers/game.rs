@@ -89,15 +89,16 @@ impl GameViewController for GameController {
 			}	
 			else {
 				let mut transposition_table: HashSet<Gameboard> = HashSet::new();
-				let test = ia.negascout(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize);
+				ia.negascout(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize);
 				// ia.alphabeta(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
-				println!("SELECTED: value: {}", test);
-				printboard!(model.state.cells);
 				model.state.selected_move
 			};
+			let test = model.state.value;
 			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
+						println!("SELECTED: value: {}", test);
+						printboard!(model.state.cells);
 						model.all_state.push(model.state.clone());
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();

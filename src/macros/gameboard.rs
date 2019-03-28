@@ -31,7 +31,7 @@ macro_rules! opposite_stone {
 macro_rules! line_horizontal {
 	($cells: expr, $x_min: expr, $x_max: expr, $y: expr) => {
 		($x_min..=$x_max).enumerate().fold(0, |value, (index, x)| {
-			value | ((get_stone!($cells[x], $y) as u32) << (index * 2))
+			value | ((get_stone!($cells[x], $y) as u64) << (index * 2))
 		})
 	};
 }
@@ -47,7 +47,7 @@ macro_rules! up_diago {
 		(($x_orig - $diago_up_left)..=($x_orig + $diago_down_right))
 		.enumerate()
 		.fold(0, |value, (index, x)| {
-			value | ((get_stone!($cells[x], $y_orig - $diago_up_left + index) as u32) << (index * 2))
+			value | ((get_stone!($cells[x], $y_orig - $diago_up_left + index) as u64) << (index * 2))
 		})
 	};
 }
@@ -57,7 +57,7 @@ macro_rules! down_diago {
 		(($x_orig - $diago_down_left)..=($x_orig + $diago_up_right))
 			.enumerate()
 			.fold(0, |value , (index, x)| {
-				value | ((get_stone!($cells[x], $y_orig + $diago_down_left - index) as u32) << (index * 2))
+				value | ((get_stone!($cells[x], $y_orig + $diago_down_left - index) as u64) << (index * 2))
 			})
 	};
 }
@@ -143,7 +143,7 @@ macro_rules! up_diago_orig {
 		(($x_orig - $len_origin_min)..=($x_orig + $len_origin_max))
 		.enumerate()
 		.fold(0, |value, (index, x)| {
-			value | ((get_stone!($cells[x], $y_orig - $len_origin_min + index) as u32) << (index * 2))
+			value | ((get_stone!($cells[x], $y_orig - $len_origin_min + index) as u64) << (index * 2))
 		})
 	};
 
@@ -160,7 +160,7 @@ macro_rules! down_diago_orig {
 		(($x_orig - $len_origin_min)..=($x_orig + $len_origin_max))
 			.enumerate()
 			.fold(0, |value , (index, x)| {
-				value | ((get_stone!($cells[x], $y_orig + $len_origin_min - index) as u32) << (index * 2))
+				value | ((get_stone!($cells[x], $y_orig + $len_origin_min - index) as u64) << (index * 2))
 			})
 	};
 
