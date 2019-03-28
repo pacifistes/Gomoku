@@ -16,12 +16,12 @@ impl IA {
     }
 }
 
-pub fn evale_one_line(mut line: u64) -> isize {
+pub fn evale_one_line(mut line: u32) -> isize {
 	let mut value = 0;
 	let mut i: isize = 0;
 	let mut j: isize = 0;
 
-	while i < 64 {
+	while line != 0 {
 		match (line & 0b1111_1111_1111) as u16 {
 			0b00_00_00_00_00_00 => {  // ALIGN NULL
 					j = 10;
@@ -112,19 +112,17 @@ pub fn evale_one_line(mut line: u64) -> isize {
 impl IA {
     pub fn eval(&self, state: &Gameboard, stone: u8) -> isize {
 
-		println!("\n\n______ EVAL _______");
-		printboard!(&state.cells);
 		if (state.black_captures >= 10 && stone == WHITE) || (state.white_captures >= 10 && stone == BLACK){
 			-10000000
 		} else if state.white_captures >= 10  && stone == WHITE || state.black_captures >= 10  && stone == BLACK {
 			10000000
 		} else {
-			let mut all: Vec<u64> = (0..SIZE).map(|y| line_horizontal!(state.cells, 0, SIZE - 1, y as usize)).collect();
-			let all_verti: Vec<u64> = (0..SIZE).map(|x| line_vertical!(state.cells[x as usize], 0 , SIZE -1)).collect();
-			let all_diag_d: Vec<u64> = (0..SIZE).map(|x| down_diago!(state.cells, x, 0, x as usize, 0)).collect();
-			let all_diag_d2: Vec<u64> = (1..SIZE).map(|y| down_diago_orig!(state.cells, SIZE - 1, 0, SIZE - 1, y as usize, 0, SIZE - 1)).collect();
-			let all_diag_u: Vec<u64> = (0..SIZE).map(|x| up_diago_orig!(state.cells, x as usize, 0, SIZE -1, 0, 0, SIZE - 1)).collect();
-			let all_diag_u2: Vec<u64> = (1..SIZE).map(|y| up_diago_orig!(state.cells, 0, 0, SIZE -1, y as usize, 0, SIZE - 1)).collect();
+			let mut all: Vec<u32> = (0..SIZE).map(|y| line_horizontal!(state.cells, 0, SIZE - 1, y as usize)).collect();
+			let all_verti: Vec<u32> = (0..SIZE).map(|x| line_vertical!(state.cells[x as usize], 0 , SIZE -1) as u32).collect();
+			let all_diag_d: Vec<u32> = (0..SIZE).map(|x| down_diago!(state.cells, x, 0, x as usize, 0)).collect();
+			let all_diag_d2: Vec<u32> = (1..SIZE).map(|y| down_diago_orig!(state.cells, SIZE - 1, 0, SIZE - 1, y as usize, 0, SIZE - 1)).collect();
+			let all_diag_u: Vec<u32> = (0..SIZE).map(|x| up_diago_orig!(state.cells, x as usize, 0, SIZE -1, 0, 0, SIZE - 1)).collect();
+			let all_diag_u2: Vec<u32> = (1..SIZE).map(|y| up_diago_orig!(state.cells, 0, 0, SIZE -1, y as usize, 0, SIZE - 1)).collect();
 
 			all.extend(all_verti);
 			all.extend(all_diag_d);
@@ -134,11 +132,11 @@ impl IA {
 			all.retain(|&elem| elem != 0);
 
 			let value: isize = all.iter().map(|&e| evale_one_line(e)).sum();
-			// if stone == WHITE {
-				// -value
-			// } else {
+			if stone == WHITE {
+				-value
+			} else {
 				value
-			// }
+			}
 		}
 	}
 }
@@ -148,16 +146,17 @@ impl IA {
     /// si current <= alpha, alors la vraie valeur minimax m vérifie : m <= current <= alpha
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
     pub fn negascout(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
-        if depth % 2 == 0 && transposition_table.contains(state) {
-			state.value = transposition_table.get(state).unwrap().value;			
-			return state.value
-		}
+        // if transposition_table.contains(state) {
+		// 	state.value = transposition_table.get(state).unwrap().value;			
+		// 	return state.value
+		// }
 		if depth == 0 || state.is_finish() {
 			state.value = self.eval(state, stone);
+
+			// println!("\n\n______ EVAL _______");
+			// printboard!(&state.cells);
 			// println!("VALUE: {}", state.value);
-			if depth % 2 == 0 {
-				transposition_table.insert(state.clone());
-			}
+				// transposition_table.insert(state.clone());
             return state.value;
         }
 
@@ -187,7 +186,8 @@ impl IA {
             last_move = (new_move.0 + 1, new_move.1);
         }
         state.selected_move = best_move;
-        alpha
+        // alpha
+		current
     }
 
     pub fn alphabeta(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
@@ -213,12 +213,8 @@ impl IA {
             };
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
-// <<<<<<< HEAD
-//             let score = -self.alphabeta(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha);
-// =======
-            let mut score = -self.alphabeta(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha);
-// >>>>>>> master
-            if score > current {
+            let score = -self.alphabeta(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha);
+            if score >= current {
                 current = score;
                 best_move = Some(new_move);
                 alpha = score.max(alpha);
