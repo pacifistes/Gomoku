@@ -1,8 +1,7 @@
 use crate::models::gameboard::*;
+use crate::eval::*;
 use std::collections::HashSet;
-use std::cmp::min;
-use std::cmp::max;
-use std::process::exit;
+use std::collections::HashMap;
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct IA {
     pub depth: u8,
@@ -15,219 +14,26 @@ impl IA {
         }
     }
 }
-pub fn dbg_line(mut line : u16) {
-	// println!("{:#016b}", line);
-	for _ in 0..6 {
-		match ((line & 0b11_00_00_00_00_00) >> 10) as u8 {
-			WHITE => (print!("w")),
-			BLACK => (print!("b")),
-			NOPE => (print!("-")),
-			_ => (),
-		}
-		line<<=2;
-	}
-	print!(" ");
-}
-
-
-pub fn evale_one_line(mut line: u64) -> isize {
-	let mut value = 0;
-	let mut j: isize;
-
-	// println!("EVAL one line: {:#066b}", line);
-
-	while line != 0 {
-		dbg_line((line & 0b1111_1111_1111) as u16);
-		// println!("eval: {:#016b} ", line & 0b1111_1111_1111);
-		match (line & 0b11_11_11_11_11_11) as u16 {
-			0b00_00_00_00_00_00 => {  // ALIGN NULL
-					j = 10;
-			},
-			0b00_10_00_00_00_00 | 0b00_01_00_00_00_00 => {  // ALIGN 1
-					j = 10;
-			},
-			align2plus if align2plus & 0b11_11_11_11 == 0b00_01_01_00 => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value += 100");
-				value += 100;
-					j = 6;
-			},
-			align2moins if align2moins & 0b11_11_11_11 == 0b00_10_10_00 => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": Value -= 100");
-					value -= 100;
-					j = 6;
-			}
-			align3_open_plus if (align3_open_plus & 0b11_11_11_11_11_11 == 0b00_00_01_01_01_00)
-						|| (align3_open_plus & 0b11_11_11_11_11_11 == 0b00_01_00_01_01_00) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value += 1000");
-				value += 1000;
-					j = 10;
-			},
-			align3_open_moins if (align3_open_moins & 0b11_11_11_11_11_11 == 0b00_00_10_10_10_00)
-						|| (align3_open_moins & 0b11_11_11_11_11_11 == 0b00_10_00_10_10_00) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": Value -= 1000");
-					value -= 1000;
-					j = 10;
-			}
-			align4_open_plus if (align4_open_plus & 0b11_11_11_11_11_11 == 0b00_01_01_01_01_00) 
-							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_00_01_01_01_00) 
-							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_01_00_01_01_00) 
-							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_01_01_00_01_00) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value += 10000");
-				value += 10000;
-					j = 10;
-			},
-			align4_open_moins if (align4_open_moins & 0b11_11_11_11_11_11 == 0b00_10_10_10_10_00)
-							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_00_10_10_10_00) 
-							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_10_00_10_10_00) 
-							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_10_10_00_10_00) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value -= 10000");
-				value -= 10000;
-					j = 10;
-			},
-			align3_close_plus if (align3_close_plus & 0b11_11_11_11_11_11 == 0b00_00_01_01_01_10)
-						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b00_01_00_01_01_10)
-						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b10_01_00_01_01_00)
-						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b10_01_01_01_00_00)=> {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value += 100");
-				value += 100;
-					j = 10;
-			},
-			align3_close_moins if (align3_close_moins & 0b11_11_11_11_11_11 == 0b00_00_10_10_10_01)
-						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b00_10_00_10_10_01)
-						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b01_10_00_10_10_00)
-						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b01_10_10_10_00_00) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": Value -= 100");
-					value -= 100;
-					j = 10;
-			}
-			align4_close_plus if (align4_close_plus & 0b11_11_11_11_11_11 == 0b10_01_01_01_01_00) 
-							|| (align4_close_plus & 0b11_11_11_11_11_11 == 0b00_01_01_01_01_10) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-			println!(": value += 1000");
-				value += 1000;
-					j = 10;
-			},
-			align4_close_moins if (align4_close_moins & 0b11_11_11_11_11_11 == 0b01_10_10_10_10_00) 
-								|| (align4_close_moins & 0b11_11_11_11_11_11 == 0b00_10_10_10_10_01) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-			println!(": value -= 1000");
-				value -= 1000;
-					j = 10;
-			},
-			align5_moins if (align5_moins & 0b11_11_11_11_11 == 0b10_10_10_10_10) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value -= 10000000");
-				value -= 10000000;
-				j = 10;
-			},
-			align5_plus if (align5_plus & 0b11_11_11_11_11 == 0b01_01_01_01_01) => {
-				// dbg_line((line & 0b1111_1111_1111) as u16);
-				println!(": value += 10000000");
-				value += 10000000;
-				j = 10;
-			},
-			_ => j = 2,
-		}
-		line>>=j;
-	}
-	value
-}
-
-
-fn get_all_diag1(cells: &[u64; 19]) -> Vec<u64> {
-	let mut vec: Vec<u64> = (4..SIZE).map(|x| down_diago!(cells, x, 0, x, 0)).collect();
-	let vec2: Vec<u64> = (1..SIZE-4).map(|x| down_diago!(cells, 0, SIZE - 1 -x, x, SIZE - 1)).collect();
-	vec.extend(vec2);
-	vec
-}
-
-fn get_all_diag2(cells: &[u64; 19]) -> Vec<u64> {
-	let mut vec: Vec<u64> = (0..SIZE-4).map(|x| up_diago!(cells, 0, SIZE - 1 - x, x, 0)).collect();
-	let vec2: Vec<u64> = (1..SIZE-4).map(|y| up_diago!(cells, 0, SIZE -1, 0, y)).collect();
-	vec.extend(vec2);
-	vec
-}
-
-impl IA {
-    pub fn eval(&self, state: &Gameboard, stone: u8, depth: u8) -> isize {
-		// println!("EVAL: ");
-		// printboard!(state.cells);
-
-		if (state.black_captures >= 10 && stone == WHITE) || (state.white_captures >= 10 && stone == BLACK){
-			-10000000 //- (depth * depth) as isize
-		} else if state.white_captures >= 10  && stone == WHITE || state.black_captures >= 10  && stone == BLACK {
-			10000000 //+ (depth * depth) as isize
-		} else {
-			let mut all: Vec<u64> = (0..SIZE).map(|y| line_horizontal!(state.cells, 0, SIZE - 1, y as usize)).collect();
-			let all_verti: Vec<u64> = (0..SIZE).map(|x| line_vertical!(state.cells[x as usize], 0 , SIZE -1)).collect();
-
-			let all_diag_1 = get_all_diag1(&state.cells);
-			let all_diag_2 = get_all_diag2(&state.cells);
-
-			all.extend(all_verti);
-			all.extend(all_diag_1);
-			all.extend(all_diag_2);
-			all.retain(|&elem| elem != 0);
-
-			let value: isize = all.iter().map(|&e| evale_one_line(e)).sum();
-			if stone == WHITE {
-				if value != 0 {
-					println!("EVAL: ");
-					printboard!(state.cells);
-					println!("BOARD VALUE: {} (WHITE)\n---------------\n", -value);
-				}
-
-				-value //- (depth * depth) as isize
-			} else {
-				if value != 0 {
-					println!("EVAL: ");
-					printboard!(state.cells);
-					println!("BOARDVALUE: {} (BLACK)\n---------------\n", value);
-				}
-				value //+ (depth * depth) as isize
-			}
-		}
-	}
-}
 
 impl IA {
 	/// si alpha < current < beta, alors current est la valeur minimax
     /// si current <= alpha, alors la vraie valeur minimax m vérifie : m <= current <= alpha
     /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
-    pub fn negascout(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
-        // // if transposition_table.contains(state) {
-		// // 	state.value = transposition_table.get(state).unwrap().value;			
-		// // 	return state.value
-		// // }
-		// if depth == 0 || state.is_finish() {
-		// 	state.value = self.eval(state, stone);
 
-		// 	// println!("\n\n______ EVAL _______");
-		// 	// printboard!(&state.cells);
-		// 	// println!("VALUE: {}", state.value);
-		// 		// transposition_table.insert(state.clone());
-        //     return state.value;
-        // }
-		//   if depth % 2 == 0 && transposition_table.contains(state) {
+    pub fn negascout(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>) -> isize {
+        // if transposition_table.contains(state) {
 		// 	state.value = transposition_table.get(state).unwrap().value;			
 		// 	return state.value
 		// }
 		if depth == 0 || state.is_finish() {
-			state.value = self.eval(state, stone, depth);
-			// if depth % 2 == 0 {
-			// 	transposition_table.insert(state.clone());
-			// }
+			state.value = eval(state, stone, depth, map_board_values);
+			// transposition_table.insert(state.clone());
             return state.value;
         }
-
+		//   if depth % 2 == 0 && transposition_table.contains(state) {
+		// 	state.value = transposition_table.get(state).unwrap().value;			
+		// 	return state.value
+		// }
         let mut best_move: Option<(usize, usize)> = None;
         let mut current = (std::i64::MIN + 1) as isize;
         let mut last_move = (0, 0);
@@ -239,9 +45,9 @@ impl IA {
             };
             let mut new_state = state.clone();
             new_state.make_move(new_move.0, new_move.1, stone);
-            let mut score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -(alpha + 1), -alpha);
+            let mut score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -(alpha + 1), -alpha, map_board_values);
             if score > alpha && score < beta {
-                score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha);
+                score = -self.negascout(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values);
             }
             if score > current {
                 current = score;
@@ -254,8 +60,7 @@ impl IA {
             last_move = (new_move.0 + 1, new_move.1);
         }
         state.selected_move = best_move;
-        alpha
-		// current
+		current
     }
 
     // pub fn alphabeta(&self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
