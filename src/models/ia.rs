@@ -15,87 +15,132 @@ impl IA {
         }
     }
 }
+pub fn dbg_line(mut line : u16) {
+	// println!("{:#016b}", line);
+	for _ in 0..6 {
+		match ((line & 0b11_00_00_00_00_00) >> 10) as u8 {
+			WHITE => (print!("w")),
+			BLACK => (print!("b")),
+			NOPE => (print!("-")),
+			_ => (),
+		}
+		line<<=2;
+	}
+	print!(" ");
+}
+
 
 pub fn evale_one_line(mut line: u64) -> isize {
 	let mut value = 0;
-	// let mut i: isize = 0;
 	let mut j: isize;
 
-	println!("EVAL one line: {:#066b}", line);
+	// println!("EVAL one line: {:#066b}", line);
 
 	while line != 0 {
-		println!("eval: {:#016b} ", line & 0b1111_1111_1111);
-		match (line & 0b1111_1111_1111) as u16 {
+		dbg_line((line & 0b1111_1111_1111) as u16);
+		// println!("eval: {:#016b} ", line & 0b1111_1111_1111);
+		match (line & 0b11_11_11_11_11_11) as u16 {
 			0b00_00_00_00_00_00 => {  // ALIGN NULL
 					j = 10;
 			},
-			0b01_10_10_10_10_00 | 0b00_10_10_10_10_01 => {  // ALIGN 4/
-					value -= 10000;
+			0b00_10_00_00_00_00 | 0b00_01_00_00_00_00 => {  // ALIGN 1
 					j = 10;
 			},
-			0b00_10_10_10_10_10 | 0b10_10_10_10_10_00 | 0b10_10_10_10_10_01 | 0b01_10_10_10_10_10 => {  // ALIGN 5
-					value -= 10000000;
+			align2plus if align2plus & 0b11_11_11_11 == 0b00_01_01_00 => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value += 100");
+				value += 100;
+					j = 6;
+			},
+			align2moins if align2moins & 0b11_11_11_11 == 0b00_10_10_00 => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": Value -= 100");
+					value -= 100;
+					j = 6;
+			}
+			align3_open_plus if (align3_open_plus & 0b11_11_11_11_11_11 == 0b00_00_01_01_01_00)
+						|| (align3_open_plus & 0b11_11_11_11_11_11 == 0b00_01_00_01_01_00) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value += 1000");
+				value += 1000;
 					j = 10;
 			},
-			0b00_10_10_10_10_00 => {  // ALIGN 4
-					value -= 100000;
-					j = 10;
-			},
-			0b00_10_00_10_10_00 | 0b00_10_10_00_10_00 | 0b00_00_10_10_10_00 => { // ALIGN 3
+			align3_open_moins if (align3_open_moins & 0b11_11_11_11_11_11 == 0b00_00_10_10_10_00)
+						|| (align3_open_moins & 0b11_11_11_11_11_11 == 0b00_10_00_10_10_00) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": Value -= 1000");
 					value -= 1000;
 					j = 10;
+			}
+			align4_open_plus if (align4_open_plus & 0b11_11_11_11_11_11 == 0b00_01_01_01_01_00) 
+							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_00_01_01_01_00) 
+							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_01_00_01_01_00) 
+							|| (align4_open_plus & 0b11_11_11_11_11_11 == 0b01_01_01_00_01_00) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value += 10000");
+				value += 10000;
+					j = 10;
 			},
-			0b00_10_00_10_10_01 | 0b00_10_10_00_10_01 | 0b00_00_10_10_10_01 => { // ALIGN 3/
+			align4_open_moins if (align4_open_moins & 0b11_11_11_11_11_11 == 0b00_10_10_10_10_00)
+							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_00_10_10_10_00) 
+							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_10_00_10_10_00) 
+							|| (align4_open_moins & 0b11_11_11_11_11_11 == 0b10_10_10_00_10_00) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value -= 10000");
+				value -= 10000;
+					j = 10;
+			},
+			align3_close_plus if (align3_close_plus & 0b11_11_11_11_11_11 == 0b00_00_01_01_01_10)
+						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b00_01_00_01_01_10)
+						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b10_01_00_01_01_00)
+						|| (align3_close_plus & 0b11_11_11_11_11_11 == 0b10_01_01_01_00_00)=> {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value += 100");
+				value += 100;
+					j = 10;
+			},
+			align3_close_moins if (align3_close_moins & 0b11_11_11_11_11_11 == 0b00_00_10_10_10_01)
+						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b00_10_00_10_10_01)
+						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b01_10_00_10_10_00)
+						|| (align3_close_moins & 0b11_11_11_11_11_11 == 0b01_10_10_10_00_00) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": Value -= 100");
 					value -= 100;
 					j = 10;
-			},
-			0b01_10_00_10_10_00 | 0b01_10_10_00_10_00 | 0b0100_10_10_10_00 => { // ALIGN /3
-					value -= 100;
+			}
+			align4_close_plus if (align4_close_plus & 0b11_11_11_11_11_11 == 0b10_01_01_01_01_00) 
+							|| (align4_close_plus & 0b11_11_11_11_11_11 == 0b00_01_01_01_01_10) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+			println!(": value += 1000");
+				value += 1000;
 					j = 10;
 			},
-			0b00_00_10_10_00_00 => { //ALIGN 2
-					value -= 100;
+			align4_close_moins if (align4_close_moins & 0b11_11_11_11_11_11 == 0b01_10_10_10_10_00) 
+								|| (align4_close_moins & 0b11_11_11_11_11_11 == 0b00_10_10_10_10_01) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+			println!(": value -= 1000");
+				value -= 1000;
 					j = 10;
 			},
-
-			0b00_01_01_01_01_01 | 0b01_01_01_01_01_00 | 0b01_01_01_01_01_10 | 0b10_01_01_01_01_01 => {  // ALIGN 5
-					value += 10000000;
-					j = 10;
+			align5_moins if (align5_moins & 0b11_11_11_11_11 == 0b10_10_10_10_10) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value -= 10000000");
+				value -= 10000000;
+				j = 10;
 			},
-			0b10_01_01_01_01_00 | 0b00_01_01_01_01_10 => {  // ALIGN 4/
-					value += 10000;
-					j = 10;
+			align5_plus if (align5_plus & 0b11_11_11_11_11 == 0b01_01_01_01_01) => {
+				// dbg_line((line & 0b1111_1111_1111) as u16);
+				println!(": value += 10000000");
+				value += 10000000;
+				j = 10;
 			},
-			0b00_01_01_01_01_00 => {  // ALIGN 4
-					value += 100000;
-					j = 10;
-			},
-			0b00_01_01_00_01_00 | 0b00_01_00_01_01_00 | 0b00_00_01_01_01_00 => { // ALIGN 3
-					value += 1000;
-					j = 10;
-			},
-			0b00_01_01_00_01_10 | 0b00_01_00_01_01_10 | 0b00_00_01_01_01_10 => { // ALIGN 3/
-					value += 100;
-					j = 10;
-			},
-			0b10_01_01_00_01_00 | 0b10_01_00_01_01_00 | 0b10_00_01_01_01_00 => { // ALIGN /3
-					value += 100;
-					j = 10;
-			},
-
-			0b00_00_01_01_00_00 => { //ALIGN 2
-					value += 100;
-					j = 10;
-			},
-			_ => {
-					j = 2;
-			},
+			_ => j = 2,
 		}
-		line >>= j;
+		line>>=j;
 	}
-	println!("value: {}", value);
 	value
 }
+
 
 fn get_all_diag1(cells: &[u64; 19]) -> Vec<u64> {
 	let mut vec: Vec<u64> = (4..SIZE).map(|x| down_diago!(cells, x, 0, x, 0)).collect();
@@ -104,39 +149,17 @@ fn get_all_diag1(cells: &[u64; 19]) -> Vec<u64> {
 	vec
 }
 
-
-// fn get_all_diag2(cells: &[u64; 19]) -> Vec<u64> {
-// 	let mut vec: Vec<u64> = Vec::new();
-// 	for x in 0..SIZE-4 {
-// 		let test = up_diago!(cells, 0, SIZE - 1 - x, x, 0);
-// 		println!("00get_all_diag2: {:#066b}",test);
-// 		vec.push(up_diago!(cells, SIZE - 1 - x, 0, x, SIZE -1));
-// 	}
-// 		for y in 1..SIZE-4 {
-// 		let test = up_diago!(cells, 0, SIZE -1, 0, y);
-// 		println!("11get_all_diag2: {:#066b}",test);
-
-// 		// vec.push(up_diago!(cells, 0, SIZE - 1 -x, x, SIZE - 1));
-// 	}
-// 	vec
-// }
-
 fn get_all_diag2(cells: &[u64; 19]) -> Vec<u64> {
 	let mut vec: Vec<u64> = (0..SIZE-4).map(|x| up_diago!(cells, 0, SIZE - 1 - x, x, 0)).collect();
 	let vec2: Vec<u64> = (1..SIZE-4).map(|y| up_diago!(cells, 0, SIZE -1, 0, y)).collect();
 	vec.extend(vec2);
-	let mut i = 0;
-	// for e in &vec {
-	// 	println!("diag2[{}]: {:#066b}",i,  e);
-	// 	i+=1;
-	// }
 	vec
 }
 
 impl IA {
     pub fn eval(&self, state: &Gameboard, stone: u8, depth: u8) -> isize {
-		println!("EVAL: ");
-		printboard!(state.cells);
+		// println!("EVAL: ");
+		// printboard!(state.cells);
 
 		if (state.black_captures >= 10 && stone == WHITE) || (state.white_captures >= 10 && stone == BLACK){
 			-10000000 //- (depth * depth) as isize
@@ -156,12 +179,19 @@ impl IA {
 
 			let value: isize = all.iter().map(|&e| evale_one_line(e)).sum();
 			if stone == WHITE {
-				println!("BOARDVALUE: {} (WHITE)", -value);
+				if value != 0 {
+					println!("EVAL: ");
+					printboard!(state.cells);
+					println!("BOARD VALUE: {} (WHITE)\n---------------\n", -value);
+				}
 
 				-value //- (depth * depth) as isize
 			} else {
-				println!("BOARDVALUE: {} (BLACK)", value);
-
+				if value != 0 {
+					println!("EVAL: ");
+					printboard!(state.cells);
+					println!("BOARDVALUE: {} (BLACK)\n---------------\n", value);
+				}
 				value //+ (depth * depth) as isize
 			}
 		}
@@ -266,3 +296,130 @@ impl IA {
     //     alpha
     // }
 }
+
+
+// pub fn evale_one_line_old(mut line: u64) -> isize {
+// 	let mut value = 0;
+// 	// let mut i: isize = 0;
+// 	let mut j: isize;
+
+// 	// println!("EVAL one line: {:#066b}", line);
+
+// 	while line != 0 {
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 		// println!("eval: {:#016b} ", line & 0b1111_1111_1111);
+// 		match (line & 0b1111_1111_1111) as u16 {
+// 			0b00_00_00_00_00_00 => {  // ALIGN NULL
+// 					j = 10;
+// 			},
+// 			0b01_10_10_10_10_00 | 0b00_10_10_10_10_01 => {  // ALIGN 4/
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 10000");
+
+// 					value -= 10000;
+// 					j = 10;
+// 			},
+// 			0b00_10_10_10_10_10 | 0b10_10_10_10_10_00 | 0b10_10_10_10_10_01 | 0b01_10_10_10_10_10 => {  // ALIGN 5
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 10000000");
+
+// 					value -= 10000000;
+// 					j = 10;
+// 			},
+// 			0b00_10_10_10_10_00 => {  // ALIGN 4
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 100000");
+
+// 					value -= 100000;
+// 					j = 10;
+// 			},
+// 			0b00_10_00_10_10_00 | 0b00_10_10_00_10_00 | 0b00_00_10_10_10_00 => { // ALIGN 3
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 1000");
+
+// 					value -= 1000;
+// 					j = 10;
+// 			},
+// 			0b00_10_00_10_10_01 | 0b00_10_10_00_10_01 | 0b00_00_10_10_10_01 => { // ALIGN 3/
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 100");
+
+// 					value -= 100;
+// 					j = 10;
+// 			},
+// 			0b01_10_00_10_10_00 | 0b01_10_10_00_10_00 | 0b0100_10_10_10_00 => { // ALIGN /3
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 100");
+
+// 					value -= 100;
+// 					j = 10;
+// 			},
+// 			0b00_00_10_10_00_00 | 0b10_10_10_10_00_00 => { //ALIGN 2
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value -= 100");
+
+// 					value -= 100;
+// 					j = 10;
+// 			},
+
+// 			0b00_01_01_01_01_01 | 0b01_01_01_01_01_00 | 0b01_01_01_01_01_10 | 0b10_01_01_01_01_01 => {  // ALIGN 5
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 10000000");
+
+// 					value += 10000000;
+// 					j = 10;
+// 			},
+// 			0b10_01_01_01_01_00 | 0b00_01_01_01_01_10 => {  // ALIGN 4/
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 10000");
+
+// 					value += 10000;
+// 					j = 10;
+// 			},
+// 			0b00_01_01_01_01_00 => {  // ALIGN 4
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 100000");
+
+// 					value += 100000;
+// 					j = 10;
+// 			},
+// 			0b00_01_01_00_01_00 | 0b00_01_00_01_01_00 | 0b00_00_01_01_01_00 => { // ALIGN 3
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 1000");
+
+// 					value += 1000;
+// 					j = 10;
+// 			},
+// 			0b00_01_01_00_01_10 | 0b00_01_00_01_01_10 | 0b00_00_01_01_01_10 => { // ALIGN 3/
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 100");
+
+// 					value += 100;
+// 					j = 10;
+// 			},
+// 			0b10_01_01_00_01_00 | 0b10_01_00_01_01_00 | 0b10_00_01_01_01_00 => { // ALIGN /3
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 100");
+
+// 					value += 100;
+// 					j = 10;
+// 			},
+
+// 			0b00_00_01_01_00_00 => { //ALIGN 2
+// 		dbg_line((line & 0b1111_1111_1111) as u16);
+// 					println!("value += 100");
+
+// 					value += 100;
+// 					j = 10;
+// 			},
+// 			_ => {
+// 					j = 2;
+// 			},
+// 		}
+// 		line >>= j;
+// 	}
+// 	if value != 0 {
+// 		println!("value: {}", value);
+// 	}
+// 	value
+// }
