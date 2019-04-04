@@ -1,7 +1,8 @@
 use crate::models::game::GameResult;
+use crate::eval::evale_one_line;
 use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
-
+use std::iter::Sum;
 
 /// Size of game board.
 pub const SIZE: usize = 19;
@@ -28,6 +29,7 @@ pub const WHITE_TREES: [u16; 4] = [
 	NOPE as u16 | (NOPE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
 ];
 
+#[derive(Debug, Eq, Clone, Copy)]
 pub struct Line {
 	pub score: isize,
 	pub representation: u64,
@@ -37,7 +39,7 @@ pub struct Line {
 pub struct Gameboard {
     pub cells: [u64; SIZE],
 	pub possible_moves: [u32; SIZE],
-	// pub lines: [Line {0,0}; 4],
+	pub lines: [[[Line; 4]; SIZE]; SIZE],
     pub selected_move: Option<(usize, usize)>,
     pub last_move: Option<(usize, usize)>,
 	pub black_captures: u8,
@@ -49,10 +51,12 @@ pub struct Gameboard {
 
 impl Gameboard {
 	pub fn new() -> Gameboard {
+		let score = 0;
+		let representation = 0;
 		Gameboard {
 			cells: [0; SIZE],
 			possible_moves: [0; SIZE],
-			// lines: [Line {0,0}; 4],
+			lines: [[[Line {score,representation}; 4]; SIZE]; SIZE],
             selected_move: None,
             last_move: None,
 			black_captures: 0,
@@ -64,7 +68,7 @@ impl Gameboard {
 
 	pub fn is_finish(&self) -> bool {
 		self.result.is_some()
-    }
+	}
 }
 
 impl Gameboard {
@@ -85,11 +89,47 @@ impl Gameboard {
 		let capture_form: u8 = get_capture_form!(stone);
 		capture_lines.iter().fold(0, |nbr_capture, (line, coef)| {
 			if *line == capture_form {
-				self.cells[(x as isize + 1 * coef.0) as usize] &= clear_stone!((y as isize + 1 * coef.1) as usize);
-				self.cells[(x as isize + 2 * coef.0) as usize] &= clear_stone!((y as isize + 2 * coef.1) as usize);
+				self.clear_stone((x as isize + 1 * coef.0) as usize, (y as isize + 1 * coef.1) as usize);
+				self.clear_stone((x as isize + 2 * coef.0) as usize, (y as isize + 2 * coef.1) as usize);
 				return nbr_capture + 1;
 			}
 			nbr_capture
+		})
+	}
+
+	pub fn clear_stone(&mut self, x: usize, y: usize) {
+		self.cells[x] &= clear_stone!(y);
+		self.update_neighbors(x as isize, y as isize);
+	}
+
+	pub fn update_neighbors(&mut self, x: isize, y: isize) {
+		if get_stone!(self.cells[x as usize], y as usize) == NOPE {
+			return;
+		}
+		self.value -= self.lines[x as usize][y as usize].iter().fold(0, |sum, line| { sum + line.score});
+		let x_min = (x - 5).max(0) as usize;
+		let x_max = (x + 5).min(SIZE as isize - 1) as usize;
+		let y_min = (y - 5).max(0) as usize;
+		let y_max = (y + 5).min(SIZE as isize - 1) as usize;
+		let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
+		let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
+		let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
+		let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
+
+		let lines: [(u64, (isize, isize)); 4] = update_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
+		lines.iter().enumerate().for_each(|(i, (line, coef))| {
+			let mut tmp_x = x;
+			let mut tmp_y = y;
+			let mut tmp_line = *line;
+			while tmp_line != 0 {
+				tmp_x = tmp_x + coef.0;
+				tmp_y = tmp_y + coef.1;
+				let value = evale_one_line(tmp_line);
+				self.lines[tmp_x as usize][tmp_y as usize][i].score = value;
+				self.lines[tmp_x as usize][tmp_y as usize][i].representation = 0;//Todo to change
+				self.value += value;
+				tmp_line = tmp_line >> 2;
+			}
 		})
 	}
 
@@ -162,10 +202,12 @@ impl Gameboard {
 
 	pub fn update_result(&mut self, x: usize, y: usize) {
 		if self.black_captures >= 10 {
-			self.result = Some(GameResult::BlackWin)
+			self.result = Some(GameResult::BlackWin);
+			self.value = -10000000;
 		}
 		else if self.white_captures >= 10 {
-			self.result = Some(GameResult::WhiteWin)
+			self.result = Some(GameResult::WhiteWin);
+			self.value = 10000000;
 		}
 		else {
 			let x_min = (x as isize - 5).max(0) as usize;
@@ -217,5 +259,11 @@ impl Hash for Gameboard {
         self.cells.hash(state);
         self.black_captures.hash(state);
         self.white_captures.hash(state);
+    }
+}
+
+impl PartialEq for Line {
+    fn eq(&self, other: &Line) -> bool {
+        self.score == other.score && self.representation == other.representation
     }
 }

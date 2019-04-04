@@ -111,6 +111,17 @@ macro_rules! capture_lines {
 	};
 }
 
+macro_rules! update_lines {
+	($cells: expr, $x: expr, $x_min: expr, $x_max: expr, $y: expr, $y_min: expr, $y_max: expr, $diago_up_left: expr, $diago_down_right: expr, $diago_down_left: expr, $diago_up_right: expr) => {
+		[
+			(/*((line_vertical!($cells[$x], $y_min, $y_max) ) & ()) as u8*/ 0 as u64, (0, -1)),
+			(/*line_horizontal!($cells, $x, $x_max, $y)*/ 0 as u64, (-1, 0)),
+			(/*(up_diago!($cells, $diago_up_left, $diago_down_right, $x, $y))*/ 0 as u64, (-1, -1)),
+			(/*(down_diago!($cells, $diago_down_left, $diago_up_right, $x, $y))*/0 as u64,(-1, 1)),
+		]
+	};
+}
+
 macro_rules! concat_stones {
 	($line: expr, $nbr_stone: expr) => {
 		($line & ((1 << $nbr_stone * 2) - 1))
