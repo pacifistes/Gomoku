@@ -1,384 +1,249 @@
-//! Gameboard
+use crate::models::game::GameResult;
+use crate::models::ia::IA;
+use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
+use std::cmp::Ordering;
+use std::collections::HashMap;
+
 
 /// Size of game board.
 pub const SIZE: usize = 19;
 
-#[derive(Debug,PartialEq, Eq, Hash, Ord, PartialOrd, Copy, Clone)]
-pub enum Stone {
-    BLACK,
-    WHITE,
-	NOPE,
-}
+pub const NOPE: u8 = 0b00;
+pub const BLACK: u8 = 0b01;
+pub const WHITE: u8 = 0b10;
 
-impl Stone {
-    pub fn switch(&mut self) {
-        *self = match *self {
-            Stone::BLACK => Stone::WHITE,
-            Stone::WHITE => Stone::BLACK,
-            _ => return,
-        }
-    }
+pub const WHITE_CAPTURE: u8 = WHITE | BLACK << 2 | BLACK << 4 | WHITE << 6;
+pub const BLACK_CAPTURE: u8 = BLACK | WHITE << 2 | WHITE << 4 | BLACK << 6;
 
-	pub fn opposant(self) -> Stone {
-        match self {
-            Stone::BLACK => Stone::WHITE,
-            _ => Stone::BLACK,
-        }
-    }
-}
+pub const BLACK_5_ALIGN: u16 = BLACK as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8;
+pub const WHITE_5_ALIGN: u16 = WHITE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8;
+pub const BLACK_TREES: [u16; 4] = [
+	NOPE as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (NOPE as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (NOPE as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (BLACK as u16) << 2 | (NOPE as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (NOPE as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
+	];
+pub const WHITE_TREES: [u16; 4] = [
+	NOPE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (NOPE as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (NOPE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (WHITE as u16) << 2 | (NOPE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
+	NOPE as u16 | (NOPE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
+	];
 
-/// Stores game board information.
-#[derive(Debug, Eq, PartialEq, Clone)]
+#[derive(Debug, Eq, Clone)]
 pub struct Gameboard {
-	pub size: usize,
-    pub cells: [[Stone; SIZE]; SIZE],
+    pub cells: [u64; SIZE],
+	pub possible_moves: [u32; SIZE],
+    pub selected_move: Option<(usize, usize)>,
+    pub last_move: Option<(usize, usize)>,
+	pub black_captures: u8,
+	pub white_captures: u8,
 	pub value: isize,
-	pub white_captures : usize,
-	pub black_captures : usize,
-	pub possible_moves: Vec<(usize, usize)>,
-	// pub possible_moves: [[bool; SIZE]; SIZE],
-	pub selected_move: Option<(usize, usize)>,
+	pub result: Option<GameResult>,
+    pub waiting_winning_move: Option<(usize, usize)>,
 }
 
-/// Creates a new game board.
 impl Gameboard {
 	pub fn new() -> Gameboard {
 		Gameboard {
-			size: SIZE,
-			cells: [[Stone::NOPE; SIZE]; SIZE],
-			value: 0,
-			white_captures: 0,
+			cells: [0; SIZE],
+			possible_moves: [0; SIZE],
+            selected_move: None,
+            last_move: None,
 			black_captures: 0,
-			// possible_moves: [[false; SIZE]; SIZE],
-			possible_moves: Vec::new(),
-			selected_move: None,
+			white_captures: 0,
+			value: 0,
+			result: None,
+			waiting_winning_move: None,
 		}
 	}
+
+	pub fn is_finish(&self) -> bool {
+		self.result.is_some() && self.waiting_winning_move.is_none()
+    }
 }
-
-pub fn eval_value(cells: &[[Stone; SIZE]; SIZE], x_orig: isize, y_orig: isize, stone: Stone) -> (isize, usize) {
-	let mut value = 0;
-	let mut nb_captures = 0;
-	let x_min = (x_orig - 5).max(0);
-	let x_max = (x_orig + 5).min(SIZE as isize - 1);
-	let y_min = (y_orig - 5).max(0);
-	let y_max = (y_orig + 5).min(SIZE as isize - 1);
-
-	let horizontal: Vec<Stone> = (x_min..=x_max).map(|x| cells[x as usize][y_orig as usize]).collect();
-	let vertical: Vec<Stone> = (y_min..=y_max).map(|y| cells[x_orig as usize][y as usize]).collect();
-
-	let len_origin_min = (y_orig - y_min).min(x_orig - x_min);
-	let len_origin_max = (y_max - y_orig).min(x_max - x_orig);
-
-	let diag1: Vec<Stone> = ((x_orig-len_origin_min)..=(x_orig + len_origin_max)).enumerate()
-	.map(|(index, x)| cells[x as usize][y_orig as usize - len_origin_min as usize + index])
-	.collect();
-
-	let len_origin_min = (y_max - y_orig).min(x_orig - x_min);
-	let len_origin_max = (y_orig - y_min).min(x_max - x_orig);
-	let diag2: Vec<Stone> = ((x_orig-len_origin_min)..=(x_orig + len_origin_max)).enumerate()
-	.map(|(index, x)| cells[x as usize][y_orig as usize + len_origin_min as usize - index])
-	.collect();
-
-	let list = [horizontal, vertical, diag1, diag2];
-	for elem in &list {
-		let eval = eval_line(&elem, stone, stone.opposant());
-		value += eval.0;
-		if eval.1 > 0 {
-			nb_captures += eval.1;
-		}
-	}
-	(value, nb_captures)
-}
-
-pub fn analyze_slice_of_6(slice: &[Stone], current_stone: Stone, other_stone: Stone) -> (isize, usize) {
-
-	match slice {
-		test if test[0] == current_stone && test[0] == test[1] && test[0] == test[2] && test[0] == test[3] && test[0] == test[4] => (42, 0),
-		[_, s1, s2, s3, s4, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
-		[s1, s2, s3, s4, _, _] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
-		[_, _, s1, s2, s3, s4] if *s1 == current_stone && *s2 == other_stone && s2 == s3 && s1 == s4 => (2,1),// capture
-		[Stone::NOPE, s1, s2, s3, s4, Stone::NOPE] => {
-			match (s1,s2,s3,s4) {
-				(s1, s2, s3, s4) if *s1 == current_stone && s1 == s2 && s1 == s3 && s1 == s4 => (4, 0),		// align 4
-				(s1, s2, s3, Stone::NOPE) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, s2, Stone::NOPE, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, Stone::NOPE, s2, s3) if *s1 == current_stone && s1 == s2 && s1 == s3 => (3, 0),		// align 3
-				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => (1, 0),			// align 3
-				(s1, s2, Stone::NOPE, Stone::NOPE) if *s1 == current_stone && s1 == s2 => (1, 0),			// align 2
-				_ => (0, 0),
-			}
-		}
-		_ => (0, 0),
-	}
-}
-
-pub fn eval_line(slice: &[Stone], current_stone: Stone, other_stone: Stone) -> (isize, usize) {
-	let mut value = 0;
-	let mut nb_captures = 0;
-	let mut len = slice.len();
-	if len < 5 { return (0, 0); }
-
-	while len > 6 {
-		let eval = analyze_slice_of_6(&slice[len-6..len], current_stone, other_stone);
-		value+=eval.0;
-		nb_captures+=eval.1;
-		// println!("value: {}", value);
-		len -= 1;
-	}
-	if len > 0 {
-		let eval = analyze_slice_of_6(&slice[0..len], current_stone, other_stone);
-		value+=eval.0;
-		nb_captures+=eval.1;
-		// println!("value: {}", value);
-	}
-	// println!("value of line: {}", value);
-	(value, nb_captures)
-}
-
 impl Gameboard {
+	pub fn count_tree(&self, tree_lines: [u32; 4], stone: u8) -> u8 {
+		let tree_forms: [u16; 4] = get_tree_forms!(stone);
+		tree_lines.iter().fold(0, |nbr_tree, line| {
+			if (0..6).any(|range| {
+				let line_to_check: u32 = (line >> (range * 2));
+				tree_forms.contains(&(concat_stones!(line_to_check, 6) as u16))
+			}) {
+				return nbr_tree + 1;
+			}
+			nbr_tree
+		})
+	}
 
-	// pub fn update_possible_move(&mut self, x: usize, y: usize) {
-    //     let directions: [(isize, isize); 8] = [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)];
-    //     directions.iter().for_each(|(tmp_x, tmp_y)| {
-	// 		let tmp_x = *tmp_x + x as isize;
-	// 		let tmp_y = *tmp_y + y as isize;
-	// 		if tmp_x < 0 || tmp_x >= SIZE as isize || tmp_y < 0 || tmp_y >= SIZE as isize {
-	// 			return;
-	// 		}
-	// 		if self.cells[tmp_x as usize][tmp_y as usize] == Stone::NOPE {
-	// 			self.possible_moves[tmp_x as usize][tmp_y as usize] = true;
-	// 		}
-	// 	})
-	// }
+	pub fn count_capture(&mut self, capture_lines: [(u8, (isize, isize)); 8], x: usize, y: usize, stone: u8) -> u8 {
+		let capture_form: u8 = get_capture_form!(stone);
+		capture_lines.iter().fold(0, |nbr_capture, (line, coef)| {
+			// println!("{:#066b}", line);
+			if *line == capture_form {
+				self.cells[(x as isize + 1 * coef.0) as usize] &= clear_stone!((y as isize + 1 * coef.1) as usize);
+				self.cells[(x as isize + 2 * coef.0) as usize] &= clear_stone!((y as isize + 2 * coef.1) as usize);
+				return nbr_capture + 1;
+			}
+			nbr_capture
+		})
+	}
 
-	pub fn update_possible_move(&self, x: isize, y: isize) -> Vec<(usize, usize)>{
+	pub fn try_make_move(&mut self, x: isize, y: isize, stone: u8) -> bool {
+		let x_min = (x - 5).max(0) as usize;
+		let x_max = (x + 5).min(SIZE as isize - 1) as usize;
+		let y_min = (y - 5).max(0) as usize;
+		let y_max = (y + 5).min(SIZE as isize - 1) as usize;
+		let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
+		let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
+		let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
+		let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
+
+		let capture_lines: [(u8, (isize, isize)); 8] = capture_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
+		let nbr_capture = self.count_capture(capture_lines, x as usize, y as usize, stone);
+		if nbr_capture == 0 {
+			let tree_lines: [u32; 4] = tree_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
+			let nbr_tree = self.count_tree(tree_lines, stone);
+			return nbr_tree < 2;
+		}
+		match stone {
+			BLACK => self.black_captures += (nbr_capture << 1),
+			_ => self.white_captures += (nbr_capture << 1),
+		}
+		true
+	}
+
+	pub fn make_move(&mut self, x: usize, y: usize, stone: u8) -> bool {
+		if !self.is_finish() && get_stone!(self.cells[x], y) == NOPE {
+			self.cells[x] |= set_stone!(y, stone);
+			if self.try_make_move(x as isize, y as isize, stone) {
+				self.update_result(x, y, stone);
+				self.update_possible_move(x as isize, y as isize);
+				self.last_move = Some((x, y));
+				self.selected_move = None;
+				return true;
+			}
+			self.cells[x] &= clear_stone!(y);
+        }
+        false
+    }
+
+	pub fn unmake_move(&mut self, x: usize, y: usize) {
+        self.cells[x] &= clear_stone!(y);
+    }
+	
+	pub fn update_possible_move(&mut self, x: isize, y: isize) {
 		let min_x = (x - 1).max(0) as usize;
 		let min_y = (y - 1).max(0) as usize;
-		let max_x = (x + 1).min(self.size as isize - 1) as usize;
-		let max_y = (y + 1).min(self.size as isize - 1) as usize;
+		let max_x = (x + 1).min(SIZE as isize - 1) as usize;
+		let max_y = (y + 1).min(SIZE as isize - 1) as usize;
 
 		let x = x as usize;
 		let y = y as usize;
 		let moves = [(min_x, y), (min_x, min_y), (min_x, max_y), (max_x, y), (max_x, min_y), (max_x, max_y), (x, min_y), (x, max_y)];
 		moves
-			.into_iter()
-			.filter(|new_move| {
-				self.cells[new_move.0][new_move.1] == Stone::NOPE && !self.possible_moves.contains(*new_move)
-			}).map(|new_move| *new_move).collect()
+			.iter()
+			.for_each(|new_move| {
+				if get_stone!(self.cells[new_move.0], new_move.1) == NOPE {
+					self.possible_moves[new_move.0 as usize] |= set_move!(new_move.1)
+				}
+			})
+	}
+	
+	pub fn expand(&self) -> Vec<(usize, usize)> {
+		(0..SIZE)
+			.flat_map(|y| {
+				(0..SIZE)
+				.filter(move |&x| self.possible_moves[x] >> y & 0b1 == 1 && get_stone!(self.cells[x], y) == NOPE)
+				.map(move |x| (x, y))
+			})
+		.collect()
 	}
 
 	// pub fn next_move(&mut self, mut starting_x: usize, mut starting_y: usize) {
     //     if starting_x >= SIZE {
     //         starting_x = 0;
-    //         starting_y += 1;
+    //         starting_y = starting_y + 1;
     //         if starting_y >= SIZE {
     //             self.selected_move = None;
     //             return;
     //         }
     //     }
+	// 	// println!("TEST");
+	// 	// dbg!(&self.possible_moves);
     //     self.selected_move = None;
 	// 	(0..SIZE)
 	// 		.filter(|y| *y >= starting_y)
 	// 		.any(|y| (0..SIZE)
 	// 			.filter(|x| y > starting_y || *x >= starting_x)
 	// 			.any(|x| {
-	// 				if self.possible_moves[x][y] && self.cells[x][y] == Stone::NOPE {
+	// 				if self.possible_moves[x] >> y & 0b1 == 1 && get_stone!(self.cells[x], y) == NOPE {
     //                     self.selected_move = Some((x, y));
 	// 					return true;
 	// 				}
 	// 				false
 	// 			})
-    //     );
+	// 	);
 	// }
 
-	// pub fn expand(&self) -> Vec<(usize, usize)> {
-	// 	(0..SIZE)
-	// 	.flat_map(|y| {
-	// 		(0..SIZE)
-	// 		.filter(move |&x| self.possible_moves[x][y as usize] && self.cells[x][y as usize] == Stone::NOPE)
-	// 		.map(move |x| (x, y))
-	// 	})
-	// 	.collect()
-	// }
-}
-
-impl Gameboard {
-	pub fn apply_capture(&mut self, x: usize, y: usize, stone: Stone, other_stone: Stone, mut nb_capture: usize) {
-        let directions: [(isize, isize); 8] = [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)];
-
-		while nb_capture > 0 {
-			directions.iter().any(|(tmp_x, tmp_y)| {
-				let mut xy1 = None;
-				let mut xy2 = None;
-				(1..=3 as isize).all(|i| {
-					let tmp_x = *tmp_x  * i + x as isize;
-					let tmp_y = *tmp_y * i + y as isize;
-					if tmp_x < 0 || tmp_x >= SIZE as isize || tmp_y < 0 || tmp_y >= SIZE as isize {
-						return false;
-					}
-					let tmp_stone = self.cells[tmp_x as usize][tmp_y as usize];
-						if i <= 2 {
-							if tmp_stone == other_stone {
-								if i == 1 {
-									xy1 = Some((tmp_x, tmp_y));
-								} else {
-									xy2 = Some((tmp_x, tmp_y));
-								}
-								true 
-							} else { false }
-						}
-						else {
-							if tmp_stone == stone {
-								self.cells[xy1.unwrap().0 as usize][xy1.unwrap().1 as usize] = Stone::NOPE;
-								self.cells[xy2.unwrap().0 as usize][xy2.unwrap().1 as usize] = Stone::NOPE;
-								true
-							} else { false }
-					}
-				})
-			});
-			nb_capture -= 1;
+	pub fn update_result(&mut self, x: usize, y: usize, stone: u8) {
+		if self.black_captures >= 10 {
+			self.result = Some(GameResult::BlackWin)
 		}
-	}
-
-	// pub fn make_move(&mut self, x: usize, y: usize, stone: Stone) -> bool {
-	// 	if self.cells[x][y] == Stone::NOPE && !self.check_double_tree(x, y, stone) {
-	// 		let other_stone = match stone {
-	// 				Stone::WHITE => Stone::BLACK,
-	// 				Stone::BLACK => Stone::WHITE,
-	// 				_ => Stone::WHITE,
-	// 			};
-	// 		self.cells[x][y] = stone;
-	// 		self.update_possible_move(x, y);
-	// 		// println!("\n-------------------");
-	// 		// self.printboard();
-	// 		// println!("x: {}, y: {}", x, y);
-	// 		// let val = eval_value(&self.cells, x as isize, y as isize, stone);
-	// 		self.value = 0;
-	// 		// self.value = val.0;
-	// 		// if val.1 > 0 {
-
-	// 		// 	// self.apply_capture(x, y, stone, other_stone, val.1); //				       APPLY CAPTURE !!!!!!!!!
-	// 		// 	match stone {
-	// 		// 		Stone::WHITE => self.white_captures += val.1,
-	// 		// 		Stone::BLACK => self.black_captures += val.1,
-	// 		// 		_ => (),
-	// 		// 	}
-	// 		// }
-	// 		return true;
-    //     }
-    //     false
-    // }
-
-	 pub fn make_move(&mut self, x: usize, y: usize, stone: Stone) -> bool {
-		if self.cells[x][y] == Stone::NOPE {
-            self.cells[x][y] = stone;
-            let actual_move = (x, y);
-            // println!("avant ?{}? {}|{}", self.possible_moves.len(), x, y);
-            // dbg!(&self.possible_moves);
-            if let Some(index) = self.possible_moves.iter().position(|&possible_move| possible_move == actual_move) {
-                // println!("index = {}", index);
-				self.possible_moves.remove(index);
-			}
-            self.possible_moves.extend(self.update_possible_move(x as isize, y as isize));
-            // println!("apres ?{}?", self.possible_moves.len());
-            // dbg!(&self.possible_moves);
-            return true
-        }
-        false
-    }
-	
-	pub fn printboard(&self) {
-		print!("BOARD: \n   ");
-		for x in 0..SIZE {
-			print!("{0: <2} ", x);
+		else if self.white_captures >= 10 {
+			self.result = Some(GameResult::WhiteWin)
 		}
-		println!();
-
-		for y in 0..SIZE {
-			print!("{0: <2} ", y);
-			for x in 0..SIZE {
-				match self.cells[x][y] {
-					Stone::WHITE => print!("W  "),
-					Stone::BLACK => print!("B  "),
-					_ => print!(".  ")
+		else {
+			if let Some(winning_move) = self.waiting_winning_move {
+				if winning_move != (x, y) {
+					self.result = None;
+					self.update_result(winning_move.0, winning_move.1, stone);
+					self.waiting_winning_move = None;
 				}
 			}
-			println!();
+			let x_min = (x as isize - 5).max(0) as usize;
+			let x_max = (x + 5).min(SIZE - 1);
+			let y_min = (y as isize  - 5).max(0) as usize;
+			let y_max = (y + 5).min(SIZE - 1);
+
+			let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
+			let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
+			let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
+			let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
+			let lines: [u32; 4] = tree_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
+			lines.iter().any(|line| {
+				(0..8).any(|range| {
+					let tmp_line: u16 = concat_stones!((line >> (range * 2)) as u32, 5) as u16;
+					return match tmp_line {
+						WHITE_5_ALIGN => check_winning!(self, x, y, GameResult::WhiteWin, stone),
+						BLACK_5_ALIGN => check_winning!(self, x, y, GameResult::BlackWin, stone),
+						_ => {
+							false
+						}
+					};
+				})
+			});
 		}
 	}
+}
 
-    pub fn unmake_move(&mut self, x: usize, y: usize) {
-        self.cells[x][y] = Stone::NOPE;
+impl PartialOrd for Gameboard {
+    fn partial_cmp(&self, other: &Gameboard) -> Option<Ordering> {
+        other.value.partial_cmp(&self.value)
     }
-
 }
 
-impl Gameboard {
-    // True if capture is possible
-    pub fn check_capture(&self, x: usize, y: usize, actual_stone: Stone) -> bool {
-        let directions: [(isize, isize); 8] = [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)];
-
-        directions.iter().any(|(tmp_x, tmp_y)| {
-            (1..=3 as isize).all(|i| {
-                let tmp_x = *tmp_x  * i + x as isize;
-                let tmp_y = *tmp_y * i + y as isize;
-                if tmp_x < 0 || tmp_x >= self.size as isize || tmp_y < 0 || tmp_y >= self.size as isize {
-                    return false;
-                }
-                let tmp_stone = self.cells[tmp_x as usize][tmp_y as usize];
-                match i {
-                    1 | 2 => tmp_stone != actual_stone && tmp_stone != Stone::NOPE,
-                    _ => tmp_stone == actual_stone,
-                }
-            })
-        })
-	}
-
-	pub fn check_double_tree(&self, x: usize, y: usize, actual_stone: Stone) -> bool {
-        // let directions: [(isize, isize); 4] = [(0,1), (1,0), (1,1), (1,-1)];
-        // let closure = |tmp_x: isize, tmp_y: isize| -> Vec<Stone> {
-        //     (1..=5 as isize).filter_map(|i| {
-        //         let tmp_x = tmp_x  * i + x as isize;
-        //         let tmp_y = tmp_y * i + y as isize;
-        //         if tmp_x < 0 || tmp_x >= self.size as isize || tmp_y < 0 || tmp_y >= self.size as isize {
-        //             return None;
-        //         }
-        //         Some(self.cells[tmp_x as usize][tmp_y as usize])
-        //     }).collect()
-        // };
-        
-        // let nbr_tree = directions.iter().fold(0, |nbr_tree, (tmp_x, tmp_y)| {
-        //     let right_side = closure(*tmp_x, *tmp_y);
-        //     let mut left_side = closure(tmp_x * -1, tmp_y * -1);
-        //     left_side.reverse();
-        //     let line = [&left_side[..], &vec![actual_stone][..], &right_side[..]].concat();
-        //     let len = line.len();
-        //     if len < 6 {
-        //         return nbr_tree;
-        //     }
-        //     let is_tree: bool = (0..=(len - 6)).any(|i| {
-        //         line[i] == Stone::NOPE
-        //         && line[i + 5] == Stone::NOPE
-        //         && line[(i + 1)..(i + 5)].iter()
-        //         .fold(0, |sum, stone| {
-        //             match *stone {
-        //                 otherstone if otherstone == actual_stone => sum + 1,
-        //                 Stone::NOPE => sum + 2,
-        //                 _ => sum + 3,
-        //             }
-        //         }) == 5
-        //     });
-        //     if is_tree {
-        //         nbr_tree + 1
-        //     }
-        //     else {
-        //         nbr_tree
-        //     }
-        // });
-        // // println!("nbr_tree = {}", nbr_tree);
-        // nbr_tree >= 2
-		false
-	}
+impl PartialEq for Gameboard {
+    fn eq(&self, other: &Gameboard) -> bool {
+        self.cells == other.cells && self.black_captures == other.black_captures && self.white_captures == other.white_captures
+    }
 }
 
+impl Hash for Gameboard {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.cells.hash(state);
+        self.black_captures.hash(state);
+        self.white_captures.hash(state);
+    }
+}

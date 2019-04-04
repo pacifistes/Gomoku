@@ -1,9 +1,6 @@
 use crate::models::game::GameResult;
-use crate::models::ia::IA;
-use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
-use std::collections::HashMap;
 
 
 /// Size of game board.
@@ -23,52 +20,59 @@ pub const BLACK_TREES: [u16; 4] = [
 	NOPE as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (NOPE as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (BLACK as u16) << 2 | (NOPE as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (NOPE as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
-	];
+];
 pub const WHITE_TREES: [u16; 4] = [
 	NOPE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (NOPE as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (NOPE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (WHITE as u16) << 2 | (NOPE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (NOPE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8 | (NOPE as u16) << 10,
-	];
+];
+
+pub struct Line {
+	pub score: isize,
+	pub representation: u64,
+}
 
 #[derive(Debug, Eq, Clone)]
 pub struct Gameboard {
     pub cells: [u64; SIZE],
 	pub possible_moves: [u32; SIZE],
+	// pub lines: [Line {0,0}; 4],
     pub selected_move: Option<(usize, usize)>,
     pub last_move: Option<(usize, usize)>,
 	pub black_captures: u8,
 	pub white_captures: u8,
 	pub value: isize,
 	pub result: Option<GameResult>,
-    pub waiting_winning_move: Option<(usize, usize)>,
 }
+
 
 impl Gameboard {
 	pub fn new() -> Gameboard {
 		Gameboard {
 			cells: [0; SIZE],
 			possible_moves: [0; SIZE],
+			// lines: [Line {0,0}; 4],
             selected_move: None,
             last_move: None,
 			black_captures: 0,
 			white_captures: 0,
 			value: 0,
 			result: None,
-			waiting_winning_move: None,
 		}
 	}
 
 	pub fn is_finish(&self) -> bool {
-		self.result.is_some() && self.waiting_winning_move.is_none()
+		self.result.is_some()
     }
 }
+
 impl Gameboard {
 	pub fn count_tree(&self, tree_lines: [u32; 4], stone: u8) -> u8 {
 		let tree_forms: [u16; 4] = get_tree_forms!(stone);
 		tree_lines.iter().fold(0, |nbr_tree, line| {
 			if (0..6).any(|range| {
-				let line_to_check: u32 = (line >> (range * 2));
+				let line_to_check: u32 = line >> (range * 2);
 				tree_forms.contains(&(concat_stones!(line_to_check, 6) as u16))
 			}) {
 				return nbr_tree + 1;
@@ -80,7 +84,6 @@ impl Gameboard {
 	pub fn count_capture(&mut self, capture_lines: [(u8, (isize, isize)); 8], x: usize, y: usize, stone: u8) -> u8 {
 		let capture_form: u8 = get_capture_form!(stone);
 		capture_lines.iter().fold(0, |nbr_capture, (line, coef)| {
-			// println!("{:#066b}", line);
 			if *line == capture_form {
 				self.cells[(x as isize + 1 * coef.0) as usize] &= clear_stone!((y as isize + 1 * coef.1) as usize);
 				self.cells[(x as isize + 2 * coef.0) as usize] &= clear_stone!((y as isize + 2 * coef.1) as usize);
@@ -108,8 +111,8 @@ impl Gameboard {
 			return nbr_tree < 2;
 		}
 		match stone {
-			BLACK => self.black_captures += (nbr_capture << 1),
-			_ => self.white_captures += (nbr_capture << 1),
+			BLACK => self.black_captures += nbr_capture << 1,
+			_ => self.white_captures += nbr_capture << 1,
 		}
 		true
 	}
@@ -118,7 +121,7 @@ impl Gameboard {
 		if !self.is_finish() && get_stone!(self.cells[x], y) == NOPE {
 			self.cells[x] |= set_stone!(y, stone);
 			if self.try_make_move(x as isize, y as isize, stone) {
-				self.update_result(x, y, stone);
+				self.update_result(x, y);
 				self.update_possible_move(x as isize, y as isize);
 				self.last_move = Some((x, y));
 				self.selected_move = None;
@@ -127,10 +130,6 @@ impl Gameboard {
 			self.cells[x] &= clear_stone!(y);
         }
         false
-    }
-
-	pub fn unmake_move(&mut self, x: usize, y: usize) {
-        self.cells[x] &= clear_stone!(y);
     }
 	
 	pub fn update_possible_move(&mut self, x: isize, y: isize) {
@@ -161,33 +160,7 @@ impl Gameboard {
 		.collect()
 	}
 
-	// pub fn next_move(&mut self, mut starting_x: usize, mut starting_y: usize) {
-    //     if starting_x >= SIZE {
-    //         starting_x = 0;
-    //         starting_y = starting_y + 1;
-    //         if starting_y >= SIZE {
-    //             self.selected_move = None;
-    //             return;
-    //         }
-    //     }
-	// 	// println!("TEST");
-	// 	// dbg!(&self.possible_moves);
-    //     self.selected_move = None;
-	// 	(0..SIZE)
-	// 		.filter(|y| *y >= starting_y)
-	// 		.any(|y| (0..SIZE)
-	// 			.filter(|x| y > starting_y || *x >= starting_x)
-	// 			.any(|x| {
-	// 				if self.possible_moves[x] >> y & 0b1 == 1 && get_stone!(self.cells[x], y) == NOPE {
-    //                     self.selected_move = Some((x, y));
-	// 					return true;
-	// 				}
-	// 				false
-	// 			})
-	// 	);
-	// }
-
-	pub fn update_result(&mut self, x: usize, y: usize, stone: u8) {
+	pub fn update_result(&mut self, x: usize, y: usize) {
 		if self.black_captures >= 10 {
 			self.result = Some(GameResult::BlackWin)
 		}
@@ -195,13 +168,6 @@ impl Gameboard {
 			self.result = Some(GameResult::WhiteWin)
 		}
 		else {
-			if let Some(winning_move) = self.waiting_winning_move {
-				if winning_move != (x, y) {
-					self.result = None;
-					self.update_result(winning_move.0, winning_move.1, stone);
-					self.waiting_winning_move = None;
-				}
-			}
 			let x_min = (x as isize - 5).max(0) as usize;
 			let x_max = (x + 5).min(SIZE - 1);
 			let y_min = (y as isize  - 5).max(0) as usize;
@@ -216,8 +182,14 @@ impl Gameboard {
 				(0..8).any(|range| {
 					let tmp_line: u16 = concat_stones!((line >> (range * 2)) as u32, 5) as u16;
 					return match tmp_line {
-						WHITE_5_ALIGN => check_winning!(self, x, y, GameResult::WhiteWin, stone),
-						BLACK_5_ALIGN => check_winning!(self, x, y, GameResult::BlackWin, stone),
+						WHITE_5_ALIGN => {
+							self.result = Some(GameResult::WhiteWin);
+							true
+						},
+						BLACK_5_ALIGN => {
+							self.result = Some(GameResult::BlackWin);
+							true
+						}
 						_ => {
 							false
 						}

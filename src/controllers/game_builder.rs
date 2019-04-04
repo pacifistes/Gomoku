@@ -65,13 +65,13 @@ impl GameViewController for GameBuilderController {
             Some(model) => model,
             None => panic!("&GameViewModel isn't a GameBuilder!"),
         };
-        self.view.display_canvas(ui, widget_ids);
         let start_text = if model.game.is_some() {
             "resume"
         }
         else {
             "start"
         };
+        self.view.display_canvas(ui, widget_ids);
         self.view.display_button_start(ui, widget_ids, &self.events[&widget_ids.button_start], model, start_text);
         self.view.display_dropdown_button_game_mode(ui, widget_ids, &self.events[&widget_ids.dropdown_button_game_mode], model); 
         self.view.display_toggle_button(ui, widget_ids, &self.events[&widget_ids.toggle_button_weight_boxes], model);

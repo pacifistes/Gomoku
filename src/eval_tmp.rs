@@ -1,4 +1,19 @@
 use crate::models::gameboard::*;
+use std::collections::HashMap;
+
+
+pub fn dbg_line(mut line : u16) {
+	for _ in 0..6 {
+		match ((line & 0b11_00_00_00_00_00) >> 10) as u8 {
+			WHITE => (print!("x")),
+			BLACK => (print!("o")),
+			NOPE => (print!("-")),
+			_ => (),
+		}
+		line<<=2;
+	}
+	print!(" ");
+}
 
 	pub fn evale_one_line(l: u64) -> isize {
 		let mut value = 0;
@@ -225,6 +240,26 @@ fn get_all_diag1(cells: &[u64; SIZE]) -> Vec<u64> {
 	vec
 }
 
+pub fn print_possible_move(possible: &[u32; SIZE]) {
+
+	print!("POSSIBLE MOVE:\n");
+	for x in 0..SIZE { print!("{0: <2} ", x) };
+	print!("\n");
+	for y in 0..SIZE {
+		print!("{0: <2} ", y);
+		for x in 0..SIZE {
+			if possible[x] >> y & 0b1 == 1 {
+				print!("x  ");
+			}
+			else {
+				print!(".  ");
+			}
+		}
+		print!("\n");
+	}
+
+}
+
 fn get_all_diag2(cells: &[u64; SIZE]) -> Vec<u64> {
 	let mut vec: Vec<u64> = (0..SIZE-4).map(|x| up_diago!(cells, 0, SIZE - 1 - x, x, 0)).collect();
 	let vec2: Vec<u64> = (1..SIZE-4).map(|y| up_diago!(cells, 0, SIZE -1, 0, y)).collect();
@@ -232,11 +267,14 @@ fn get_all_diag2(cells: &[u64; SIZE]) -> Vec<u64> {
 	vec
 }
 
-    pub fn eval(state: &Gameboard, actual_stone: u8) -> isize {
+    pub fn eval(state: &Gameboard, actual_stone: u8, depth: u8, map_board_values: &mut HashMap<[u64; SIZE], isize>, player_stone: u8) -> isize {
+
 		let mut score = if state.black_captures >= 10 {
 				-10000000
 		} else if state.white_captures >= 10 {
 				10000000
+		} else if map_board_values.contains_key(&state.cells) {
+				*map_board_values.get(&state.cells).unwrap()
 		} else {
 			let mut all: Vec<u64> = (0..SIZE).map(|y| line_horizontal!(state.cells, 0, SIZE - 1, y as usize)).collect();
 			let all_verti: Vec<u64> = (0..SIZE).map(|x| line_vertical!(state.cells[x as usize], 0 , SIZE -1)).collect();
@@ -248,11 +286,25 @@ fn get_all_diag2(cells: &[u64; SIZE]) -> Vec<u64> {
 			all.extend(all_diag_2);
 			all.retain(|&elem| elem != 0);
 			let value = all.iter().map(|&e| evale_one_line(e)).sum();
+			map_board_values.insert(state.cells, value);
 			value
 		};
 		score += (state.white_captures * state.white_captures * 100) as isize - (state.black_captures * state.black_captures * 100) as isize;
-		if actual_stone == BLACK {
+		if player_stone == BLACK {
 			score = -score;
 		}
-		score
+		score *= depth as isize + 1;
+		// printboard!(state.cells);
+		// print_possible_move(&state.possible_moves);
+		if actual_stone == player_stone {
+			// println!("actual_stone == player_stone: score: {}\n\n------------------\n\n", score);
+			// println!("\nEVAL: {} (depth: {})", score, depth);
+			// println!("\n---------------------\n\n");
+
+			score// + (depth as isize * 10000) //- (state.white_captures * state.white_captures * 10) as isize + (state.black_captures  * state.black_captures * 10) as isize
+		} else {
+			// println!("\nEVAL: {} (depth: {})", -score, depth);
+			// println!("\n---------------------\n\n");
+			-score// + (depth as isize * 10000) //+ (state.white_captures * state.white_captures * 10) as isize - (state.black_captures  * state.black_captures * 10) as isize
+			}
 	}
