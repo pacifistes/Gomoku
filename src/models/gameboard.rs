@@ -11,6 +11,9 @@ pub const NOPE: u8 = 0b00;
 pub const BLACK: u8 = 0b01;
 pub const WHITE: u8 = 0b10;
 
+pub const NEIGHBORS_DIRECTIONS: [(isize, isize); 4] = [(0, -1), (-1, 0), (-1, -1), (-1, 1)];
+pub const MY_DIRECTIONS: [(isize, isize); 4] = [(0, 1), (1, 0), (1, 1), (1, -1)];
+
 pub const WHITE_CAPTURE: u8 = WHITE | BLACK << 2 | BLACK << 4 | WHITE << 6;
 pub const BLACK_CAPTURE: u8 = BLACK | WHITE << 2 | WHITE << 4 | BLACK << 6;
 
@@ -31,8 +34,8 @@ pub const WHITE_TREES: [u16; 4] = [
 
 #[derive(Debug, Eq, Clone, Copy)]
 pub struct Line {
-	pub score: isize,
-	pub representation: u64,
+	pub score: i32,
+	pub representation: u16,
 }
 
 #[derive(Debug, Eq, Clone)]
@@ -72,87 +75,68 @@ impl Gameboard {
 }
 
 impl Gameboard {
-	pub fn count_tree(&self, tree_lines: [u32; 4], stone: u8) -> u8 {
+	pub fn count_tree(&self, x: isize, y: isize, stone: u8) -> u8 {
 		let tree_forms: [u16; 4] = get_tree_forms!(stone);
-		tree_lines.iter().fold(0, |nbr_tree, line| {
-			if (0..6).any(|range| {
-				let line_to_check: u32 = line >> (range * 2);
-				tree_forms.contains(&(concat_stones!(line_to_check, 6) as u16))
-			}) {
-				return nbr_tree + 1;
+		let mut nbr_tree = 0;
+		let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
+		directions.iter().enumerate().for_each(|(i, dir)| {
+			let mut j = 1;
+			while j < 5 {
+				let tmp_x = x + dir.0 * j;
+				let tmp_y = y + dir.1 * j;
+				if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
+					break;
+				}
+				if tree_forms.contains(&(self.lines[x as usize][y as usize][i].representation)) {
+					nbr_tree += 1;
+					break;
+				}
+				j += 1;
 			}
-			nbr_tree
-		})
+		});
+		nbr_tree
 	}
 
-	pub fn count_capture(&mut self, capture_lines: [(u8, (isize, isize)); 8], x: usize, y: usize, stone: u8) -> u8 {
+	pub fn count_capture(&mut self, x: usize, y: usize, stone: u8) -> u8 {
 		let capture_form: u8 = get_capture_form!(stone);
-		capture_lines.iter().fold(0, |nbr_capture, (line, coef)| {
-			if *line == capture_form {
-				self.clear_stone((x as isize + 1 * coef.0) as usize, (y as isize + 1 * coef.1) as usize);
-				self.clear_stone((x as isize + 2 * coef.0) as usize, (y as isize + 2 * coef.1) as usize);
-				return nbr_capture + 1;
+		let mut nbr_capture = 0;
+
+		let directions: [(isize, isize); 4] = MY_DIRECTIONS;
+		directions.iter().enumerate().for_each(|(i, dir)| {
+			if self.lines[x as usize][y as usize][i].representation as u8 == capture_form {
+				self.clear_stone((x as isize + 1 * dir.0) as usize, (y as isize + 1 * dir.1) as usize);
+				self.clear_stone((x as isize + 2 * dir.0) as usize, (y as isize + 2 * dir.1) as usize);
+				nbr_capture += 1;
 			}
-			nbr_capture
-		})
-	}
+		});
 
-	pub fn clear_stone(&mut self, x: usize, y: usize) {
-		self.cells[x] &= clear_stone!(y);
-		self.update_neighbors(x as isize, y as isize);
-	}
-
-	pub fn update_neighbors(&mut self, x: isize, y: isize) {
-		if get_stone!(self.cells[x as usize], y as usize) == NOPE {
-			return;
-		}
-		self.value -= self.lines[x as usize][y as usize].iter().fold(0, |sum, line| { sum + line.score});
-		let x_min = (x - 5).max(0) as usize;
-		let x_max = (x + 5).min(SIZE as isize - 1) as usize;
-		let y_min = (y - 5).max(0) as usize;
-		let y_max = (y + 5).min(SIZE as isize - 1) as usize;
-		let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
-		let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
-		let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
-		let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
-
-		let lines: [(u64, (isize, isize)); 4] = update_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
-		lines.iter().enumerate().for_each(|(i, (line, coef))| {
-			let mut tmp_x = x;
-			let mut tmp_y = y;
-			let mut tmp_line = *line;
-			while tmp_line != 0 {
-				tmp_x = tmp_x + coef.0;
-				tmp_y = tmp_y + coef.1;
-				let value = evale_one_line(tmp_line);
-				self.lines[tmp_x as usize][tmp_y as usize][i].score = value;
-				self.lines[tmp_x as usize][tmp_y as usize][i].representation = 0;//Todo to change
-				self.value += value;
-				tmp_line = tmp_line >> 2;
+		let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
+		directions.iter().enumerate().for_each(|(i, dir)| {
+			let tmp_x: isize = x as isize + dir.0 * 3;
+			let tmp_y: isize = y as isize + dir.1 * 3;
+			if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
+				return;
 			}
-		})
+			if self.lines[tmp_x as usize][tmp_y as usize][i].representation as u8 == capture_form {
+				self.clear_stone((x as isize + 1 * dir.0) as usize, (y as isize + 1 * dir.1) as usize);
+				self.clear_stone((x as isize + 2 * dir.0) as usize, (y as isize + 2 * dir.1) as usize);
+				nbr_capture += 1;
+			}
+		});
+		nbr_capture
 	}
+}
 
+impl Gameboard {
 	pub fn try_make_move(&mut self, x: isize, y: isize, stone: u8) -> bool {
-		let x_min = (x - 5).max(0) as usize;
-		let x_max = (x + 5).min(SIZE as isize - 1) as usize;
-		let y_min = (y - 5).max(0) as usize;
-		let y_max = (y + 5).min(SIZE as isize - 1) as usize;
-		let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
-		let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
-		let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
-		let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
-
-		let capture_lines: [(u8, (isize, isize)); 8] = capture_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
-		let nbr_capture = self.count_capture(capture_lines, x as usize, y as usize, stone);
+		let nbr_capture = self.count_capture(x as usize, y as usize, stone);
 		if nbr_capture == 0 {
-			let tree_lines: [u32; 4] = tree_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
-			let nbr_tree = self.count_tree(tree_lines, stone);
+			let nbr_tree = self.count_tree(x, y, stone);
 			return nbr_tree < 2;
 		}
 		match stone {
-			BLACK => self.black_captures += nbr_capture << 1,
-			_ => self.white_captures += nbr_capture << 1,
+			BLACK => self.black_captures += nbr_capture * 2,
+			_ => self.white_captures += nbr_capture * 2,
 		}
 		true
 	}
@@ -160,6 +144,7 @@ impl Gameboard {
 	pub fn make_move(&mut self, x: usize, y: usize, stone: u8) -> bool {
 		if !self.is_finish() && get_stone!(self.cells[x], y) == NOPE {
 			self.cells[x] |= set_stone!(y, stone);
+			self.update_neighbors(x as isize, y as isize, stone);
 			if self.try_make_move(x as isize, y as isize, stone) {
 				self.update_result(x, y);
 				self.update_possible_move(x as isize, y as isize);
@@ -189,7 +174,9 @@ impl Gameboard {
 				}
 			})
 	}
-	
+}
+
+impl Gameboard {
 	pub fn expand(&self) -> Vec<(usize, usize)> {
 		(0..SIZE)
 			.flat_map(|y| {
@@ -198,6 +185,43 @@ impl Gameboard {
 				.map(move |x| (x, y))
 			})
 		.collect()
+	}
+
+
+	pub fn clear_stone(&mut self, x: usize, y: usize) {
+		self.cells[x] &= clear_stone!(y);
+		self.update_neighbors(x as isize, y as isize, NOPE);
+	}
+
+	pub fn update_neighbors(&mut self, x: isize, y: isize, stone: u8) {
+		self.value -= self.lines[x as usize][y as usize].iter().fold(0, |sum, line| { sum + line.score}) as isize;
+		(0..4).for_each(|i| {
+			self.lines[x as usize][y as usize][i].representation =
+			(self.lines[x as usize][y as usize][i].representation & !(0b11)) | stone as u16;
+
+			let value = evale_one_line(self.lines[x as usize][y as usize][i].representation);
+			self.lines[x as usize][y as usize][i].score = value;
+			self.value += value as isize;
+		});
+
+		let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
+		directions.iter().enumerate().for_each(|(i, dir)| {
+			let mut j = 1;
+			while j < 6 {
+				let tmp_x = x + dir.0 * j;
+				let tmp_y = y + dir.1 * j;
+				if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
+					break;
+				}
+				self.lines[tmp_x as usize][tmp_y as usize][i].representation =
+				(self.lines[tmp_x as usize][tmp_y as usize][i].representation & !(0b11 << (j * 2))) | ((stone as u16) << (j * 2));
+				self.value -= self.lines[tmp_x as usize][tmp_y as usize][i].score as isize;
+				let value = evale_one_line(self.lines[tmp_x as usize][tmp_y as usize][i].representation);
+				self.lines[tmp_x as usize][tmp_y as usize][i].score = value;
+				self.value += value as isize;
+				j += 1;
+			}
+		})
 	}
 
 	pub fn update_result(&mut self, x: usize, y: usize) {

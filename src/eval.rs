@@ -1,7 +1,7 @@
 use crate::models::gameboard::*;
 
-	pub fn evale_one_line(line: u64) -> isize {
-		match (line & 0b11_11_11_11_11_11) as u16 {
+	pub fn evale_one_line(line: u16) -> i32 {
+		match (line & 0b11_11_11_11_11_11) {
 			// _xxxxx
 			align5_white if (align5_white & 0b11_11_11_11_11 == 0b10_10_10_10_10) => {
 				// println!(": [02]RETURN 10000000 align5 white");
