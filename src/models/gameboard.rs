@@ -51,7 +51,6 @@ pub struct Gameboard {
 	pub result: Option<GameResult>,
 }
 
-
 impl Gameboard {
 	pub fn new() -> Gameboard {
 		let score = 0;
@@ -80,6 +79,9 @@ impl Gameboard {
 		let mut nbr_tree = 0;
 		let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
 		directions.iter().enumerate().for_each(|(i, dir)| {
+			if (nbr_tree >= 2) {
+				return;
+			}
 			let mut j = 1;
 			while j < 5 {
 				let tmp_x = x + dir.0 * j;
@@ -146,7 +148,7 @@ impl Gameboard {
 			self.cells[x] |= set_stone!(y, stone);
 			self.update_neighbors(x as isize, y as isize, stone);
 			if self.try_make_move(x as isize, y as isize, stone) {
-				self.update_result(x, y);
+				self.update_result(x as isize, y as isize);
 				self.update_possible_move(x as isize, y as isize);
 				self.last_move = Some((x, y));
 				self.selected_move = None;
@@ -187,7 +189,6 @@ impl Gameboard {
 		.collect()
 	}
 
-
 	pub fn clear_stone(&mut self, x: usize, y: usize) {
 		self.cells[x] &= clear_stone!(y);
 		self.update_neighbors(x as isize, y as isize, NOPE);
@@ -224,7 +225,7 @@ impl Gameboard {
 		})
 	}
 
-	pub fn update_result(&mut self, x: usize, y: usize) {
+	pub fn update_result(&mut self, x: isize, y: isize) {
 		if self.black_captures >= 10 {
 			self.result = Some(GameResult::BlackWin);
 			self.value = -10000000;
@@ -234,33 +235,31 @@ impl Gameboard {
 			self.value = 10000000;
 		}
 		else {
-			let x_min = (x as isize - 5).max(0) as usize;
-			let x_max = (x + 5).min(SIZE - 1);
-			let y_min = (y as isize  - 5).max(0) as usize;
-			let y_max = (y + 5).min(SIZE - 1);
-
-			let diago_up_left = (y as usize - y_min).min(x as usize - x_min);
-			let diago_up_right = (y as usize - y_min).min(x_max - x as usize);
-			let diago_down_right = (y_max - y as usize).min(x_max - x as usize);
-			let diago_down_left = (y_max - y as usize).min(x as usize - x_min);
-			let lines: [u32; 4] = tree_lines!(self.cells, x as usize, x_min, x_max, y as usize, y_min, y_max, diago_up_left, diago_down_right, diago_down_left, diago_up_right);
-			lines.iter().any(|line| {
-				(0..8).any(|range| {
-					let tmp_line: u16 = concat_stones!((line >> (range * 2)) as u32, 5) as u16;
-					return match tmp_line {
+			let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
+			directions.iter().enumerate().any(|(i, dir)| {
+				let mut j = 0;
+				while j < 5 {
+					let tmp_x = x + dir.0 * j;
+					let tmp_y = y + dir.1 * j;
+					if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
+						break;
+					}
+					match (self.lines[tmp_x as usize][tmp_y as usize][i].representation) {
 						WHITE_5_ALIGN => {
 							self.result = Some(GameResult::WhiteWin);
-							true
+							return true;
+							// check_winning!(self, x, y, GameResult::WhiteWin, stone)
 						},
 						BLACK_5_ALIGN => {
 							self.result = Some(GameResult::BlackWin);
-							true
-						}
-						_ => {
-							false
-						}
-					};
-				})
+							return true;
+							// check_winning!(self, x, y, GameResult::BlackWin, stone)
+						},
+						_ => (),
+					}
+					j += 1;
+				}
+				false
 			});
 		}
 	}
