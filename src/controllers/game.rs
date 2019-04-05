@@ -109,18 +109,20 @@ impl GameController {
 		};
 
 		if let Player::Ia{ia, ..} = player {
+			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();		
 			let best_move: Option<(usize, usize)> = if model.all_state.len() == 1 {
 				let new_state = model.state.clone();
 				let position = SIZE / 2;
 				Some((position, position))
 			}
 			else {
-				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize);
+				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut all_values);
 				model.state.selected_move
 			};
 			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
+						print_all_values(&model.all_state.last().unwrap().cells, &all_values);
 						model.all_state.push(model.state.clone());
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();
@@ -130,4 +132,28 @@ impl GameController {
 			};
 		}
 	}
+}
+
+pub fn print_all_values(cells: &[u64; SIZE], all_values: &HashMap<(usize, usize), isize>) {
+	print!("\n\nALL VALUES:\n ");
+		for x in 0..SIZE { print!(" {0: >9}", x)};
+		println!();
+
+		for y in 0..SIZE {
+			print!("{0: <9} ", y);
+			for x in 0..SIZE {
+				if all_values.contains_key(&(x,y)) {
+					print!("{0: <9} ", all_values.get(&(x,y)).unwrap());
+				} else {
+					match get_stone!(cells[x], y) {
+						WHITE => print!("{}[7;49;97mW{}[0m         ", 27 as char, 27 as char),
+						BLACK => print!("{}[7;49;90mB{}[0m         ", 27 as char, 27 as char),
+						_ =>     print!(".         ")
+					}
+				}
+			}
+			println!();
+		}
+	
+	print!("__________________\n");
 }

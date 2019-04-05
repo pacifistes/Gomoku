@@ -1,6 +1,6 @@
 use crate::models::gameboard::*;
 use crate::eval::*;
-
+use std::collections::HashMap;
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct IA {
     pub depth: u8,
@@ -23,20 +23,27 @@ impl IA {
 			new_state.make_move(new_move.0, new_move.1, stone);
 			new_state
 		}).collect();
-		possible_boards.sort_by(|board, other| board.value.cmp(&other.value));
-		// let len = possible_boards.len();
-		// let nbr_item = len.min(4);
-		// let nbr_item = len.min(4 + self.depth as usize);
-		// possible_boards = possible_boards[0..nbr_item].to_vec();
+		if (stone == BLACK) {
+			possible_boards.sort_by(|board, other| {
+					board.value.cmp(&other.value)
+			});
+		}
+		else {
+			possible_boards.sort_by(|board, other| {
+				other.value.cmp(&board.value)
+			});
+		}
 		possible_boards
 	}
 
-	pub fn negascout(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize) -> isize {
+	pub fn negascout(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, all_values: &mut HashMap<(usize, usize), isize>) -> isize {
 		if depth == 0 || state.is_finish() {
+			let mut score = state.value;
+			score += (state.white_captures * state.white_captures * 100) as isize - (state.black_captures * state.black_captures * 100) as isize;
 			if stone == BLACK {
-				return -state.value;
+				return -score;
 			} else {
-				return state.value;
+				return score;
 			}
         }
         let mut best_move: Option<(usize, usize)> = None;
@@ -45,10 +52,13 @@ impl IA {
 		let mut i = 0;
 		let possible_states: Vec<Gameboard> = self.expand(state, stone, depth);
         for mut new_state in possible_states {
-            let mut score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -tmp_beta, -alpha);
+            let mut score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -tmp_beta, -alpha, all_values);
             if score > alpha && score < beta && i > 0 && depth > 1 {
-                score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha);
+                score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha, all_values);
             }
+			if depth == self.depth {
+				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+			}
 			i += 1;
             if score > current {
                 current = score;
