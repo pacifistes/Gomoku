@@ -39,7 +39,7 @@ impl IA {
 	pub fn negascout(&self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, all_values: &mut HashMap<(usize, usize), isize>) -> isize {
 		if depth == 0 || state.is_finish() {
 			let mut score = state.value;
-			score += (state.white_captures * state.white_captures * 100) as isize - (state.black_captures * state.black_captures * 100) as isize;
+			score += (state.white_captures as isize * state.white_captures as isize * 100) - (state.black_captures as isize * state.black_captures as isize * 100);
 			if stone == BLACK {
 				return -score;
 			} else {
