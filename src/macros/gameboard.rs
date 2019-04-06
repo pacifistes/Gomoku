@@ -51,3 +51,23 @@ macro_rules! concat_stones {
 		($line & ((1 << $nbr_stone * 2) - 1))
 	}
 }
+
+macro_rules! printboard {
+	($cells: expr) => {
+		print!("BOARD:\n   ");
+		for x in 0..SIZE { print!("{0: <2} ", x) };
+		println!();
+
+		for y in 0..SIZE {
+			print!("{0: <2} ", y);
+			for x in 0..SIZE {
+				match get_stone!($cells[x], y) {
+					WHITE => print!("W  "),
+					BLACK => print!("B  "),
+					_ => print!(".  ")
+				}
+			}
+			println!();
+		}
+	};
+}

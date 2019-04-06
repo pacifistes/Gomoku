@@ -20,6 +20,7 @@ pub enum GameEvent {
 pub struct GameController {
 	pub view: GameView,
 	events: HashMap<Id, GameEvent>,
+	pub map_board_values: HashMap<[u64; SIZE], isize>,
 }
 
 impl GameController {
@@ -66,6 +67,7 @@ impl GameViewController for GameController {
 		let mut controller = GameController {
 			view,
 			events: HashMap::new(),
+			map_board_values: HashMap::new(),
 		};
 		controller.set_events(widget_ids);
 		Box::new(controller)
@@ -108,7 +110,7 @@ impl GameController {
 			_ => &model.black_player,
 		};
 
-		if let Player::Ia{ia, ..} = player {
+		if let Player::Ia{mut ia, ..} = player {
 			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();		
 			let best_move: Option<(usize, usize)> = if model.all_state.len() == 1 {
 				let new_state = model.state.clone();
@@ -116,7 +118,8 @@ impl GameController {
 				Some((position, position))
 			}
 			else {
-				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut all_values);
+				ia.counter = 0;
+				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
 				model.state.selected_move
 			};
 			match best_move {

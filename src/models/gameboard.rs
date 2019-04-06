@@ -136,10 +136,12 @@ impl Gameboard {
 			let nbr_tree = self.count_tree(x, y, stone);
 			return nbr_tree < 2;
 		}
+		self.value -= (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
 		match stone {
 			BLACK => self.black_captures += nbr_capture * 2,
 			_ => self.white_captures += nbr_capture * 2,
 		}
+		self.value += (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
 		true
 	}
 
@@ -154,7 +156,8 @@ impl Gameboard {
 				self.selected_move = None;
 				return true;
 			}
-			self.cells[x] &= clear_stone!(y);
+			self.clear_stone(x, y);
+			// self.cells[x] &= clear_stone!(y);
         }
         false
     }
