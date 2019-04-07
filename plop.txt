@@ -1,0 +1,10 @@
+
+running 1 test
+time for make first move = 5.58µs
+time for apply negascout search whith 8-depth= 16.097285859s
+number of negascout call whith 8-depth= 811458
+time for make first move = 2.688µs
+test tests::bench::tests::negascout_8 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out
+

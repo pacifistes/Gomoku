@@ -89,7 +89,7 @@ impl Gameboard {
 				if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
 					break;
 				}
-				if tree_forms.contains(&(self.lines[x as usize][y as usize][i].representation)) {
+				if tree_forms.contains(&(self.lines[tmp_x as usize][tmp_y as usize][i].representation)) {
 					nbr_tree += 1;
 					break;
 				}
@@ -136,12 +136,12 @@ impl Gameboard {
 			let nbr_tree = self.count_tree(x, y, stone);
 			return nbr_tree < 2;
 		}
-		self.value -= (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
+		// self.value -= (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
 		match stone {
 			BLACK => self.black_captures += nbr_capture * 2,
 			_ => self.white_captures += nbr_capture * 2,
 		}
-		self.value += (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
+		// self.value += (self.white_captures as isize * self.white_captures as isize * 100) - (self.black_captures as isize * self.black_captures as isize * 100);
 		true
 	}
 
@@ -203,7 +203,7 @@ impl Gameboard {
 			self.lines[x as usize][y as usize][i].representation =
 			(self.lines[x as usize][y as usize][i].representation & !(0b11)) | stone as u16;
 
-			let value = evale_one_line(self.lines[x as usize][y as usize][i].representation);
+			let value = evale_one_line(self.lines[x as usize][y as usize][i].representation, stone, self.black_captures, self.white_captures);
 			self.lines[x as usize][y as usize][i].score = value;
 			self.value += value as isize;
 		});
@@ -220,7 +220,7 @@ impl Gameboard {
 				self.lines[tmp_x as usize][tmp_y as usize][i].representation =
 				(self.lines[tmp_x as usize][tmp_y as usize][i].representation & !(0b11 << (j * 2))) | ((stone as u16) << (j * 2));
 				self.value -= self.lines[tmp_x as usize][tmp_y as usize][i].score as isize;
-				let value = evale_one_line(self.lines[tmp_x as usize][tmp_y as usize][i].representation);
+				let value = evale_one_line(self.lines[tmp_x as usize][tmp_y as usize][i].representation, stone, self.black_captures, self.white_captures);
 				self.lines[tmp_x as usize][tmp_y as usize][i].score = value;
 				self.value += value as isize;
 				j += 1;
@@ -247,7 +247,7 @@ impl Gameboard {
 					if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
 						break;
 					}
-					match (self.lines[tmp_x as usize][tmp_y as usize][i].representation) {
+					match (self.lines[tmp_x as usize][tmp_y as usize][i].representation & 0b11_11_11_11_11) {
 						WHITE_5_ALIGN => {
 							self.result = Some(GameResult::WhiteWin);
 							return true;

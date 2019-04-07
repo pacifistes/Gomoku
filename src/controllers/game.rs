@@ -93,12 +93,12 @@ impl GameViewController for GameController {
 			};
 			self.view.display_result(ui, widget_ids, result);
 		}
+		else if !is_human {
+			self.make_best_move(model);
+		}
 		self.view.display_button_quit(ui, widget_ids, &self.events[&widget_ids.button_quit], model);
 		if model.game_mode != GameMode::IaVsIa {
 			self.view.display_button_undo(ui, widget_ids, &self.events[&widget_ids.button_undo], model);
-		}
-		if !is_human {
-			self.make_best_move(model);
 		}
 	}
 }
@@ -125,7 +125,7 @@ impl GameController {
 			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
-						print_all_values(&model.all_state.last().unwrap().cells, &all_values);
+						// print_all_values(&model.all_state.last().unwrap().cells, &all_values);
 						model.all_state.push(model.state.clone());
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();

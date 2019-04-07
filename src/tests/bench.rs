@@ -25,6 +25,13 @@ mod tests {
                 let best_move = gameboard.selected_move.unwrap();
                 println!("time for apply negascout search whith {}-depth= {:?}", depth, timer.elapsed());
                 println!("number of negascout call whith {}-depth= {:?}", depth, ia.counter);
+
+                let timer = Instant::now();
+                (0..10).for_each(|x| {
+                    gameboard.make_move(x,0, BLACK);
+                });
+                println!("time for make first move = {:?}", timer.elapsed());
+
                 // print_all_values(&gameboard.cells, &all_values);
 
                 // gameboard.make_move(best_move.0, best_move.1, BLACK);
