@@ -5,6 +5,7 @@ mod tests {
     use std::time::Instant;
     use crate::controllers::game::print_all_values;
     use std::collections::HashMap;
+    use std::collections::HashSet;
 
     macro_rules! negascout_tests {
         ($($name:ident: $value:expr,)*) => {
@@ -81,6 +82,46 @@ mod tests {
         }
     }
 
+    macro_rules! negascout_tt_tests {
+        ($($name:ident: $value:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let mut gameboard = Gameboard::new();
+                let depth = $value as u8;
+                let mut ia = IA::new(depth);
+    			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();
+            	let mut map_board_values: HashMap<[u64; SIZE], isize> = HashMap::new();
+
+                let stone = WHITE;
+                let timer = Instant::now();
+                gameboard.make_move(9,9, BLACK);
+                println!("time for make first move = {:?}", timer.elapsed());
+        		let mut transposition_table: HashSet<Gameboard> = HashSet::new();
+
+				ia.alpha_beta_with_memory(&mut gameboard, &mut transposition_table, stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut map_board_values, &mut all_values, stone);
+                
+                let best_move = gameboard.selected_move.unwrap();
+                println!("time for apply negascout_tt search whith {}-depth= {:?}", depth, timer.elapsed());
+                println!("number of negascout_tt call whith {}-depth= {:?}", depth, ia.counter);
+
+                let timer = Instant::now();
+                (0..10).for_each(|x| {
+                    gameboard.make_move(x,0, BLACK);
+                });
+                println!("time for make first move = {:?}", timer.elapsed());
+
+                // print_all_values(&gameboard.cells, &all_values);
+
+                // gameboard.make_move(best_move.0, best_move.1, BLACK);
+                // println!("time = {:?}", timer.elapsed());
+                // println!("gameboard = {:?}", best_move);
+                // println!("----------------------------");
+            }
+        )*
+        }
+    }
+
     negascout_tests! {
         negascout_1: (1),
         negascout_2: (2),
@@ -105,5 +146,18 @@ mod tests {
         mtdf_8: (8),
         mtdf_9: (9),
         mtdf_10: (10),
+    }
+
+    negascout_tt_tests! {
+        negascout_tt_1: (1),
+        negascout_tt_2: (2),
+        negascout_tt_3: (3),
+        negascout_tt_4: (4),
+        negascout_tt_5: (5),
+        negascout_tt_6: (6),
+        negascout_tt_7: (7),
+        negascout_tt_8: (8),
+        negascout_tt_9: (9),
+        negascout_tt_10: (10),
     }
 }
