@@ -1,10 +1,15 @@
 
-running 1 test
-time for make first move = 5.58µs
-time for apply negascout search whith 8-depth= 16.097285859s
+running 2 tests
+time for make first move = 5.188µs
+time for make first move = 2.38µs
+time for apply mtdf search whith 8-depth= 4.7665938s
+number of mtdf call whith 8-depth= 61379
+time for make first move = 2.741µs
+test tests::bench::tests::mtdf_8 ... ok
+time for apply negascout search whith 8-depth= 16.352583125s
 number of negascout call whith 8-depth= 811458
-time for make first move = 2.688µs
+time for make first move = 2.615µs
 test tests::bench::tests::negascout_8 ... ok
 
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 18 filtered out
 

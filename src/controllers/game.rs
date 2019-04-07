@@ -10,7 +10,6 @@ use crate::models::game::*;
 use conrod::UiCell;
 use conrod::widget::id::Id;
 use std::collections::HashMap;
-
 pub enum GameEvent {
 	Grid(fn(&mut Game, usize, usize)),
 	ButtonUndo(fn(&mut Game)),
@@ -119,7 +118,8 @@ impl GameController {
 			}
 			else {
 				ia.counter = 0;
-				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				// ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
 				model.state.selected_move
 			};
 			match best_move {

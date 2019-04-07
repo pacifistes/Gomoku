@@ -2,7 +2,6 @@ use crate::models::game::GameResult;
 use crate::eval::evale_one_line;
 use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
-use std::iter::Sum;
 
 /// Size of game board.
 pub const SIZE: usize = 19;
@@ -47,6 +46,8 @@ pub struct Gameboard {
     pub last_move: Option<(usize, usize)>,
 	pub black_captures: u8,
 	pub white_captures: u8,
+	pub upperbound: isize,
+	pub lowerbound: isize,
 	pub value: isize,
 	pub result: Option<GameResult>,
 }
@@ -63,6 +64,8 @@ impl Gameboard {
             last_move: None,
 			black_captures: 0,
 			white_captures: 0,
+			upperbound: std::i64::MAX as isize,
+			lowerbound: (std::i64::MIN + 1) as isize,
 			value: 0,
 			result: None,
 		}
@@ -283,8 +286,8 @@ impl PartialEq for Gameboard {
 impl Hash for Gameboard {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.cells.hash(state);
-        self.black_captures.hash(state);
-        self.white_captures.hash(state);
+        // self.black_captures.hash(state);
+        // self.white_captures.hash(state);
     }
 }
 

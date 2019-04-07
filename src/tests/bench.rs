@@ -43,6 +43,44 @@ mod tests {
         }
     }
 
+
+    macro_rules! mtdf_tests {
+        ($($name:ident: $value:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let mut gameboard = Gameboard::new();
+                let depth = $value as u8;
+                let mut ia = IA::new(depth);
+    			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();
+            	let mut map_board_values: HashMap<[u64; SIZE], isize> = HashMap::new();
+
+                let stone = WHITE;
+                let timer = Instant::now();
+                gameboard.make_move(9,9, BLACK);
+                println!("time for make first move = {:?}", timer.elapsed());
+                ia.mtdf(&mut gameboard, stone, ia.depth, &mut map_board_values, &mut all_values, stone);
+                let best_move = gameboard.selected_move.unwrap();
+                println!("time for apply mtdf search whith {}-depth= {:?}", depth, timer.elapsed());
+                println!("number of mtdf call whith {}-depth= {:?}", depth, ia.counter);
+
+                let timer = Instant::now();
+                (0..10).for_each(|x| {
+                    gameboard.make_move(x,0, BLACK);
+                });
+                println!("time for make first move = {:?}", timer.elapsed());
+
+                // print_all_values(&gameboard.cells, &all_values);
+
+                // gameboard.make_move(best_move.0, best_move.1, BLACK);
+                // println!("time = {:?}", timer.elapsed());
+                // println!("gameboard = {:?}", best_move);
+                // println!("----------------------------");
+            }
+        )*
+        }
+    }
+
     negascout_tests! {
         negascout_1: (1),
         negascout_2: (2),
@@ -54,5 +92,18 @@ mod tests {
         negascout_8: (8),
         negascout_9: (9),
         negascout_10: (10),
+    }
+
+    mtdf_tests! {
+        mtdf_1: (1),
+        mtdf_2: (2),
+        mtdf_3: (3),
+        mtdf_4: (4),
+        mtdf_5: (5),
+        mtdf_6: (6),
+        mtdf_7: (7),
+        mtdf_8: (8),
+        mtdf_9: (9),
+        mtdf_10: (10),
     }
 }
