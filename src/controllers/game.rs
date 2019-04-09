@@ -120,17 +120,17 @@ impl GameController {
 			else {
 				ia.counter = 0;
 				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				// ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
+				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				// ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
 				let mut transposition_table: HashSet<Gameboard> = HashSet::new();
 				// ia.alphabeta_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
-				// ia.alpha_beta_with_memory(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
+				// ia.negascout_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
 				model.state.selected_move
 			};
 			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
-						// print_all_values(&model.all_state.last().unwrap().cells, &all_values);
+						print_all_values(&model.all_state.last().unwrap().cells, &all_values);
 						model.all_state.push(model.state.clone());
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();

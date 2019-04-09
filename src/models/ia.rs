@@ -90,9 +90,9 @@ impl IA {
 				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
 			}
 			i += 1;
-			// if (depth == self.depth - 1) {
-			// 	println!("value = {}", score);
-			// }
+			if (depth == self.depth - 1) {
+				println!("value = {}", score);
+			}
             if score > current {
                 current = score;
                 best_move = new_state.last_move;
@@ -103,9 +103,9 @@ impl IA {
 				tmp_beta = alpha + 1;
             }
         }
-		// if (depth == self.depth - 1) {
-		// 	println!("beta = {}, value = {}", beta, current);
-		// }
+		if (depth == self.depth - 1) {
+			println!("beta = {}, value = {}", beta, current);
+		}
         state.selected_move = best_move;
         current
     }
@@ -137,7 +137,7 @@ impl IA {
 			// if (score == 9910 || score == 10020) {
 			// 	println!("score before = {}", state.value);
 			// }
-            if score >= current {
+            if score > current {
                 current = score;
                 best_move = new_state.last_move;
                 alpha = score.max(alpha);
@@ -150,13 +150,13 @@ impl IA {
         current
     }
 
-		pub fn alphabeta_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	pub fn alphabeta_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
             if state.lowerbound >= beta {
                 return state.lowerbound;
             }
-            if state.upperbound < alpha {
+            if state.upperbound <= alpha {
                 return state.upperbound;
             }
             alpha = max(alpha, state.lowerbound);
@@ -187,6 +187,75 @@ impl IA {
 			if depth == self.depth {
 				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
 			}
+			if (depth == self.depth - 1) {
+				println!("value = {}", score);
+			}
+            if score > current {
+                current = score;
+                best_move = new_state.last_move;
+                alpha = score.max(alpha);
+                if alpha >= beta {
+                    break;
+                }
+            }
+        }
+		if (depth == self.depth - 1) {
+			println!("beta = {}, value = {}", beta, current);
+		}
+		state.selected_move = best_move;
+        if current <= alpha {
+            state.upperbound = current;
+			transposition_table.insert(state.clone());
+        }
+        if current >= beta {
+            state.lowerbound = current;
+			transposition_table.insert(state.clone());
+        }
+        return current;
+    }
+
+	pub fn negascout_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+        if transposition_table.contains(state) {
+			*state = transposition_table.get(state).unwrap().clone();
+            if state.lowerbound >= beta {
+                return state.lowerbound;
+            }
+            if state.upperbound < alpha {
+                return state.upperbound;
+            }
+            alpha = max(alpha, state.lowerbound);
+            beta = min(beta, state.upperbound);
+        }
+		if depth == 0 || state.is_finish() {
+			let mut score = state.value;
+			score *= depth as isize + 1;
+			if player_stone == BLACK {
+				score = -score;
+			}
+			if stone == player_stone {
+	            // println!("{}, {}", self.counter, score);
+				return score;
+			} else {
+	            // println!("{}, {}",self.counter,  -score);
+				return -score;
+			}
+		}
+
+        let mut best_move: Option<(usize, usize)> = None;
+        let mut current = (std::i64::MIN + 1) as isize;
+		let mut tmp_beta = beta;
+		let mut i = 0;
+		let possible_states: Vec<Gameboard> = self.expand(state, stone, depth, player_stone);
+        for mut new_state in possible_states {
+			self.counter += 1;
+            let mut score = -self.negascout_tt(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -tmp_beta, -alpha, map_board_values, all_values, player_stone);
+            if score > alpha && score < beta && i > 0 && depth > 1 {
+				self.counter += 1;
+                score = -self.negascout_tt(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values, all_values, player_stone);
+            }
+			if depth == self.depth {
+				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+			}
             if score > current {
                 current = score;
                 best_move = new_state.last_move;
@@ -208,15 +277,33 @@ impl IA {
         return current;
     }
 
-	pub fn alpha_beta_with_memory(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
-		// if (self.depth == depth) {
-			// println!("alpha = {} | beta = {}", alpha, beta);
-		// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	pub fn alphabeta_with_memory(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
-			// if (self.depth == depth) {
-				// println!("je passe {} | {}", state.upperbound, state.lowerbound);
-			// }
             if state.lowerbound >= beta {
                 return state.lowerbound;
             }
@@ -241,33 +328,32 @@ impl IA {
 			}
 		}
 	
+	
 		let mut best_move: Option<(usize, usize)> = None;
         let mut current = (std::i64::MIN + 1) as isize;
-		let mut tmp_alpha = alpha;
-		let mut i = 0;
+        let mut tmp_alpha = alpha;
 		let possible_states: Vec<Gameboard> = self.expand(state, stone, depth, player_stone);
         for mut new_state in possible_states {
 			self.counter += 1;
-			let score = -self.alpha_beta_with_memory(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -tmp_alpha, map_board_values, all_values, player_stone);
+            let score = -self.alphabeta_with_memory(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -tmp_alpha, map_board_values, all_values, player_stone);
 			if depth == self.depth {
 				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
 			}
-			i += 1;
-			// if (depth == self.depth) {
-			// 	println!("value = {}", score);
-			// }
-            if score >= current {
+			if (depth == self.depth - 1) {
+				println!("value = {}", score);
+			}
+            if score > current {
                 current = score;
                 best_move = new_state.last_move;
-                tmp_alpha = current.max(tmp_alpha);
+                tmp_alpha = score.max(tmp_alpha);
                 if tmp_alpha >= beta {
                     break;
                 }
             }
         }
-		// if (depth == self.depth) {
-		// 	println!("alpha = {}, beta = {}, value = {}", tmp_alpha, beta, current);
-		// }
+		if (depth == self.depth - 1) {
+			println!("beta = {}, value = {}", beta, current);
+		}
 		state.selected_move = best_move;
         if current <= alpha {
             state.upperbound = current;
@@ -284,22 +370,28 @@ impl IA {
 		let mut upperbound = std::i64::MAX as isize;
 		let mut lowerbound = std::i64::MIN as isize;
 		let mut transposition_table: HashSet<Gameboard> = HashSet::new();
-		while lowerbound != upperbound {
+		
+		let mut best_move: Option<(usize, usize)> = None;
+		while lowerbound < upperbound {
 			let beta: isize = match lowerbound {
 				elem if self.g == elem	=> self.g + 1,
 				_ 					=> self.g,
 			};
-			self.g = self.alpha_beta_with_memory(state, &mut transposition_table, stone, depth, beta - 1, beta, map_board_values, all_values, player_stone);
+			println!("before alpha {} | beta = {} | g = {}", beta - 1, beta, self.g);
+			self.g = self.alphabeta_with_memory(state, &mut transposition_table, stone, depth, beta - 1, beta, map_board_values, all_values, player_stone);
 			// self.g = self.alphabeta_tt(state, &mut transposition_table, stone, depth, beta - 1, beta, map_board_values, all_values, player_stone);
 			// print_all_values(&state.cells, &all_values);
+			println!("before {} | {} | beta = {} | g = {}", lowerbound, upperbound, beta, self.g);
 			if self.g < beta {
+				best_move = state.selected_move;
 				upperbound = self.g;
 			}
 			else {
 				lowerbound = self.g;
 			}
-			// println!("{} | {}", upperbound, lowerbound);
+			println!("after {} | {}", lowerbound, upperbound);
 		}
+		state.selected_move = best_move;
 	}
 }
 
