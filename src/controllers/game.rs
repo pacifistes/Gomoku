@@ -120,8 +120,8 @@ impl GameController {
 			else {
 				ia.counter = 0;
 				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				// ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
+				// ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
 				let mut transposition_table: HashSet<Gameboard> = HashSet::new();
 				// ia.alphabeta_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
 				// ia.negascout_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
