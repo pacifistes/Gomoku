@@ -1,0 +1,1709 @@
+
+
+ALL VALUES:
+          0         1         2         3         4         5         6         7         8         9        10        11        12        13        14        15        16        17        18
+0         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+1         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+2         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+3         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+4         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+5         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+6         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+7         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+8         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+9         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+10        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+11        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+12        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+13        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+14        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+15        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+16        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+17        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+18        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+__________________
+depth = 1, alpha = -9223372036854775807, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = 10
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -110
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -110
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -110
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -110
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -110
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = -210
+final depth = 1, alpha = 90, beta, = 9223372036854775807, value = 90
+depth = 2, alpha = -9223372036854775807, beta, = 9223372036854775807, value = -90
+depth = 1, alpha = 89, beta, = 90, value = 190
+final depth = 1, alpha = 190, beta, = 90, value = 190
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 89, beta, = 90, value = 9900
+final depth = 1, alpha = 9900, beta, = 90, value = 9900
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 89, beta, = 90, value = 10010
+final depth = 1, alpha = 10010, beta, = 90, value = 10010
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10010
+depth = 1, alpha = 89, beta, = 90, value = 9900
+final depth = 1, alpha = 9900, beta, = 90, value = 9900
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 89, beta, = 90, value = 9990
+final depth = 1, alpha = 9990, beta, = 90, value = 9990
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -9990
+depth = 1, alpha = 89, beta, = 90, value = 10000
+final depth = 1, alpha = 10000, beta, = 90, value = 10000
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 89, beta, = 90, value = 10000
+final depth = 1, alpha = 10000, beta, = 90, value = 10000
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 89, beta, = 90, value = 10000
+final depth = 1, alpha = 10000, beta, = 90, value = 10000
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 89, beta, = 90, value = 10000
+final depth = 1, alpha = 10000, beta, = 90, value = 10000
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 89, beta, = 90, value = 10100
+final depth = 1, alpha = 10100, beta, = 90, value = 10100
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10100
+depth = 1, alpha = 89, beta, = 90, value = 10100
+final depth = 1, alpha = 10100, beta, = 90, value = 10100
+depth = 2, alpha = -90, beta, = 9223372036854775807, value = -10100
+final depth = 2, alpha = -90, beta, = 9223372036854775807, value = -90
+depth = 3, alpha = -9223372036854775807, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 90, beta, = 91, value = 180
+final depth = 1, alpha = 180, beta, = 91, value = 180
+depth = 2, alpha = -91, beta, = -90, value = -180
+depth = 1, alpha = 90, beta, = 91, value = 190
+final depth = 1, alpha = 190, beta, = 91, value = 190
+depth = 2, alpha = -91, beta, = -90, value = -190
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 9900
+final depth = 1, alpha = 9900, beta, = 91, value = 9900
+depth = 2, alpha = -91, beta, = -90, value = -9900
+depth = 1, alpha = 90, beta, = 91, value = 9900
+final depth = 1, alpha = 9900, beta, = 91, value = 9900
+depth = 2, alpha = -91, beta, = -90, value = -9900
+depth = 1, alpha = 90, beta, = 91, value = 10010
+final depth = 1, alpha = 10010, beta, = 91, value = 10010
+depth = 2, alpha = -91, beta, = -90, value = -10010
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10000
+final depth = 1, alpha = 10000, beta, = 91, value = 10000
+depth = 2, alpha = -91, beta, = -90, value = -10000
+depth = 1, alpha = 90, beta, = 91, value = 10100
+final depth = 1, alpha = 10100, beta, = 91, value = 10100
+depth = 2, alpha = -91, beta, = -90, value = -10100
+depth = 1, alpha = 90, beta, = 91, value = 10100
+final depth = 1, alpha = 10100, beta, = 91, value = 10100
+depth = 2, alpha = -91, beta, = -90, value = -10100
+final depth = 2, alpha = -91, beta, = -90, value = -180
+depth = 1, alpha = 90, beta, = 9223372036854775807, value = 180
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 80
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 80
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 80
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -10
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -20
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -20
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -20
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -20
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -20
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = -110
+final depth = 1, alpha = 180, beta, = 9223372036854775807, value = 180
+depth = 2, alpha = -9223372036854775807, beta, = -90, value = -180
+depth = 1, alpha = 179, beta, = 180, value = 190
+final depth = 1, alpha = 190, beta, = 180, value = 190
+depth = 2, alpha = -180, beta, = -90, value = -190
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 9900
+final depth = 1, alpha = 9900, beta, = 180, value = 9900
+depth = 2, alpha = -180, beta, = -90, value = -9900
+depth = 1, alpha = 179, beta, = 180, value = 9900
+final depth = 1, alpha = 9900, beta, = 180, value = 9900
+depth = 2, alpha = -180, beta, = -90, value = -9900
+depth = 1, alpha = 179, beta, = 180, value = 10010
+final depth = 1, alpha = 10010, beta, = 180, value = 10010
+depth = 2, alpha = -180, beta, = -90, value = -10010
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10000
+final depth = 1, alpha = 10000, beta, = 180, value = 10000
+depth = 2, alpha = -180, beta, = -90, value = -10000
+depth = 1, alpha = 179, beta, = 180, value = 10100
+final depth = 1, alpha = 10100, beta, = 180, value = 10100
+depth = 2, alpha = -180, beta, = -90, value = -10100
+depth = 1, alpha = 179, beta, = 180, value = 10100
+final depth = 1, alpha = 10100, beta, = 180, value = 10100
+depth = 2, alpha = -180, beta, = -90, value = -10100
+final depth = 2, alpha = -180, beta, = -90, value = -180
+depth = 3, alpha = 90, beta, = 9223372036854775807, value = 180
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 10
+depth = 1, alpha = 180, beta, = 181, value = 0
+depth = 1, alpha = 180, beta, = 181, value = 0
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -210
+final depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 2, alpha = -181, beta, = -180, value = -90
+final depth = 2, alpha = -90, beta, = -180, value = -90
+depth = 3, alpha = 180, beta, = 9223372036854775807, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 100
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 10
+depth = 1, alpha = 180, beta, = 181, value = 0
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -100
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+final depth = 1, alpha = 180, beta, = 181, value = 100
+depth = 2, alpha = -181, beta, = -180, value = -100
+final depth = 2, alpha = -100, beta, = -180, value = -100
+depth = 3, alpha = 180, beta, = 9223372036854775807, value = 100
+depth = 1, alpha = 180, beta, = 181, value = 180
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 80
+depth = 1, alpha = 180, beta, = 181, value = 80
+depth = 1, alpha = 180, beta, = 181, value = 80
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -20
+depth = 1, alpha = 180, beta, = 181, value = -20
+depth = 1, alpha = 180, beta, = 181, value = -20
+depth = 1, alpha = 180, beta, = 181, value = -20
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+final depth = 1, alpha = 180, beta, = 181, value = 180
+depth = 2, alpha = -181, beta, = -180, value = -180
+final depth = 2, alpha = -180, beta, = -180, value = -180
+depth = 3, alpha = 180, beta, = 9223372036854775807, value = 180
+depth = 1, alpha = 180, beta, = 181, value = 100
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 90
+depth = 1, alpha = 180, beta, = 181, value = 10
+depth = 1, alpha = 180, beta, = 181, value = 0
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -10
+depth = 1, alpha = 180, beta, = 181, value = -100
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+depth = 1, alpha = 180, beta, = 181, value = -110
+final depth = 1, alpha = 180, beta, = 181, value = 100
+depth = 2, alpha = -181, beta, = -180, value = -100
+final depth = 2, alpha = -100, beta, = -180, value = -100
+depth = 3, alpha = 180, beta, = 9223372036854775807, value = 100
+depth = 1, alpha = 180, beta, = 181, value = 210
+final depth = 1, alpha = 210, beta, = 181, value = 210
+depth = 2, alpha = -181, beta, = -180, value = -210
+depth = 1, alpha = 180, beta, = 181, value = 9900
+final depth = 1, alpha = 9900, beta, = 181, value = 9900
+depth = 2, alpha = -181, beta, = -180, value = -9900
+depth = 1, alpha = 180, beta, = 181, value = 10010
+final depth = 1, alpha = 10010, beta, = 181, value = 10010
+depth = 2, alpha = -181, beta, = -180, value = -10010
+depth = 1, alpha = 180, beta, = 181, value = 9900
+final depth = 1, alpha = 9900, beta, = 181, value = 9900
+depth = 2, alpha = -181, beta, = -180, value = -9900
+depth = 1, alpha = 180, beta, = 181, value = 9990
+final depth = 1, alpha = 9990, beta, = 181, value = 9990
+depth = 2, alpha = -181, beta, = -180, value = -9990
+depth = 1, alpha = 180, beta, = 181, value = 200
+final depth = 1, alpha = 200, beta, = 181, value = 200
+depth = 2, alpha = -181, beta, = -180, value = -200
+depth = 1, alpha = 180, beta, = 181, value = 10000
+final depth = 1, alpha = 10000, beta, = 181, value = 10000
+depth = 2, alpha = -181, beta, = -180, value = -10000
+depth = 1, alpha = 180, beta, = 181, value = 9990
+final depth = 1, alpha = 9990, beta, = 181, value = 9990
+depth = 2, alpha = -181, beta, = -180, value = -9990
+depth = 1, alpha = 180, beta, = 181, value = 200
+final depth = 1, alpha = 200, beta, = 181, value = 200
+depth = 2, alpha = -181, beta, = -180, value = -200
+depth = 1, alpha = 180, beta, = 181, value = 10000
+final depth = 1, alpha = 10000, beta, = 181, value = 10000
+depth = 2, alpha = -181, beta, = -180, value = -10000
+depth = 1, alpha = 180, beta, = 181, value = 10000
+final depth = 1, alpha = 10000, beta, = 181, value = 10000
+depth = 2, alpha = -181, beta, = -180, value = -10000
+depth = 1, alpha = 180, beta, = 181, value = 10000
+final depth = 1, alpha = 10000, beta, = 181, value = 10000
+depth = 2, alpha = -181, beta, = -180, value = -10000
+depth = 1, alpha = 180, beta, = 181, value = 10000
+final depth = 1, alpha = 10000, beta, = 181, value = 10000
+depth = 2, alpha = -181, beta, = -180, value = -10000
+depth = 1, alpha = 180, beta, = 181, value = 10100
+final depth = 1, alpha = 10100, beta, = 181, value = 10100
+depth = 2, alpha = -181, beta, = -180, value = -10100
+depth = 1, alpha = 180, beta, = 181, value = 10100
+final depth = 1, alpha = 10100, beta, = 181, value = 10100
+depth = 2, alpha = -181, beta, = -180, value = -10100
+final depth = 2, alpha = -181, beta, = -180, value = -200
+depth = 1, alpha = 180, beta, = 9223372036854775807, value = 210
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 10
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = 0
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -90
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -90
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 210, beta, = 9223372036854775807, value = -200
+final depth = 1, alpha = 210, beta, = 9223372036854775807, value = 210
+depth = 2, alpha = -9223372036854775807, beta, = -180, value = -210
+depth = 1, alpha = 209, beta, = 210, value = 9900
+final depth = 1, alpha = 9900, beta, = 210, value = 9900
+depth = 2, alpha = -210, beta, = -180, value = -9900
+depth = 1, alpha = 209, beta, = 210, value = 10010
+final depth = 1, alpha = 10010, beta, = 210, value = 10010
+depth = 2, alpha = -210, beta, = -180, value = -10010
+depth = 1, alpha = 209, beta, = 210, value = 9900
+final depth = 1, alpha = 9900, beta, = 210, value = 9900
+depth = 2, alpha = -210, beta, = -180, value = -9900
+depth = 1, alpha = 209, beta, = 210, value = 9990
+final depth = 1, alpha = 9990, beta, = 210, value = 9990
+depth = 2, alpha = -210, beta, = -180, value = -9990
+depth = 1, alpha = 209, beta, = 210, value = 200
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 100
+depth = 1, alpha = 209, beta, = 210, value = 10
+depth = 1, alpha = 209, beta, = 210, value = 10
+depth = 1, alpha = 209, beta, = 210, value = 0
+depth = 1, alpha = 209, beta, = 210, value = 0
+depth = 1, alpha = 209, beta, = 210, value = 0
+depth = 1, alpha = 209, beta, = 210, value = 0
+depth = 1, alpha = 209, beta, = 210, value = -100
+depth = 1, alpha = 209, beta, = 210, value = -100
+final depth = 1, alpha = 209, beta, = 210, value = 200
+depth = 1, alpha = 180, beta, = 210, value = 200
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 100
+depth = 1, alpha = 200, beta, = 210, value = 10
+depth = 1, alpha = 200, beta, = 210, value = 10
+depth = 1, alpha = 200, beta, = 210, value = 0
+depth = 1, alpha = 200, beta, = 210, value = 0
+depth = 1, alpha = 200, beta, = 210, value = 0
+depth = 1, alpha = 200, beta, = 210, value = 0
+depth = 1, alpha = 200, beta, = 210, value = -100
+depth = 1, alpha = 200, beta, = 210, value = -100
+final depth = 1, alpha = 200, beta, = 210, value = 200
+depth = 2, alpha = -210, beta, = -180, value = -200
+depth = 1, alpha = 199, beta, = 200, value = 10000
+final depth = 1, alpha = 10000, beta, = 200, value = 10000
+depth = 2, alpha = -200, beta, = -180, value = -10000
+depth = 1, alpha = 199, beta, = 200, value = 9990
+final depth = 1, alpha = 9990, beta, = 200, value = 9990
+depth = 2, alpha = -200, beta, = -180, value = -9990
+depth = 1, alpha = 199, beta, = 200, value = 200
+final depth = 1, alpha = 200, beta, = 200, value = 200
+depth = 2, alpha = -200, beta, = -180, value = -200
+depth = 1, alpha = 199, beta, = 200, value = 10000
+final depth = 1, alpha = 10000, beta, = 200, value = 10000
+depth = 2, alpha = -200, beta, = -180, value = -10000
+depth = 1, alpha = 199, beta, = 200, value = 10000
+final depth = 1, alpha = 10000, beta, = 200, value = 10000
+depth = 2, alpha = -200, beta, = -180, value = -10000
+depth = 1, alpha = 199, beta, = 200, value = 10000
+final depth = 1, alpha = 10000, beta, = 200, value = 10000
+depth = 2, alpha = -200, beta, = -180, value = -10000
+depth = 1, alpha = 199, beta, = 200, value = 10000
+final depth = 1, alpha = 10000, beta, = 200, value = 10000
+depth = 2, alpha = -200, beta, = -180, value = -10000
+depth = 1, alpha = 199, beta, = 200, value = 10100
+final depth = 1, alpha = 10100, beta, = 200, value = 10100
+depth = 2, alpha = -200, beta, = -180, value = -10100
+depth = 1, alpha = 199, beta, = 200, value = 10100
+final depth = 1, alpha = 10100, beta, = 200, value = 10100
+depth = 2, alpha = -200, beta, = -180, value = -10100
+final depth = 2, alpha = -200, beta, = -180, value = -200
+depth = 3, alpha = 180, beta, = 9223372036854775807, value = 200
+depth = 1, alpha = 200, beta, = 201, value = 210
+final depth = 1, alpha = 210, beta, = 201, value = 210
+depth = 2, alpha = -201, beta, = -200, value = -210
+depth = 1, alpha = 200, beta, = 201, value = 10010
+final depth = 1, alpha = 10010, beta, = 201, value = 10010
+depth = 2, alpha = -201, beta, = -200, value = -10010
+depth = 1, alpha = 200, beta, = 201, value = 9900
+final depth = 1, alpha = 9900, beta, = 201, value = 9900
+depth = 2, alpha = -201, beta, = -200, value = -9900
+depth = 1, alpha = 200, beta, = 201, value = 9900
+final depth = 1, alpha = 9900, beta, = 201, value = 9900
+depth = 2, alpha = -201, beta, = -200, value = -9900
+depth = 1, alpha = 200, beta, = 201, value = 9990
+final depth = 1, alpha = 9990, beta, = 201, value = 9990
+depth = 2, alpha = -201, beta, = -200, value = -9990
+depth = 1, alpha = 200, beta, = 201, value = 9990
+final depth = 1, alpha = 9990, beta, = 201, value = 9990
+depth = 2, alpha = -201, beta, = -200, value = -9990
+depth = 1, alpha = 200, beta, = 201, value = 200
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -100
+final depth = 1, alpha = 200, beta, = 201, value = 200
+depth = 2, alpha = -201, beta, = -200, value = -200
+final depth = 2, alpha = -200, beta, = -200, value = -200
+depth = 3, alpha = 200, beta, = 9223372036854775807, value = 200
+depth = 1, alpha = 200, beta, = 201, value = 110
+depth = 1, alpha = 200, beta, = 201, value = 110
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = -80
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+final depth = 1, alpha = 200, beta, = 201, value = 110
+depth = 2, alpha = -201, beta, = -200, value = -110
+final depth = 2, alpha = -110, beta, = -200, value = -110
+depth = 3, alpha = 200, beta, = 9223372036854775807, value = 110
+depth = 1, alpha = 200, beta, = 201, value = 20
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+final depth = 1, alpha = 200, beta, = 201, value = 20
+depth = 2, alpha = -201, beta, = -200, value = -20
+final depth = 2, alpha = -20, beta, = -200, value = -20
+depth = 3, alpha = 200, beta, = 9223372036854775807, value = 20
+depth = 1, alpha = 200, beta, = 201, value = 210
+final depth = 1, alpha = 210, beta, = 201, value = 210
+depth = 2, alpha = -201, beta, = -200, value = -210
+depth = 1, alpha = 200, beta, = 201, value = 120
+depth = 1, alpha = 200, beta, = 201, value = 100
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+final depth = 1, alpha = 200, beta, = 201, value = 120
+depth = 2, alpha = -201, beta, = -200, value = -120
+final depth = 2, alpha = -120, beta, = -200, value = -120
+depth = 3, alpha = 200, beta, = 9223372036854775807, value = 120
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = 0
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -90
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -100
+depth = 1, alpha = 200, beta, = 201, value = -190
+depth = 1, alpha = 200, beta, = 201, value = -190
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+depth = 1, alpha = 200, beta, = 201, value = -200
+final depth = 1, alpha = 200, beta, = 201, value = 10
+depth = 2, alpha = -201, beta, = -200, value = -10
+final depth = 2, alpha = -10, beta, = -200, value = -10
+depth = 3, alpha = 200, beta, = 9223372036854775807, value = 10
+final depth = 3, alpha = 200, beta, = 9223372036854775807, value = 200
+depth = 4, alpha = -9223372036854775807, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 199, beta, = 200, value = 190
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+final depth = 1, alpha = 199, beta, = 200, value = 190
+depth = 2, alpha = -200, beta, = -199, value = -190
+final depth = 2, alpha = -190, beta, = -199, value = -190
+depth = 3, alpha = 199, beta, = 200, value = 190
+depth = 1, alpha = 199, beta, = 200, value = 190
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+final depth = 1, alpha = 199, beta, = 200, value = 190
+depth = 2, alpha = -200, beta, = -199, value = -190
+final depth = 2, alpha = -190, beta, = -199, value = -190
+depth = 3, alpha = 199, beta, = 200, value = 190
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -210
+final depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 2, alpha = -200, beta, = -199, value = -90
+final depth = 2, alpha = -90, beta, = -199, value = -90
+depth = 3, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -210
+final depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 2, alpha = -200, beta, = -199, value = -90
+final depth = 2, alpha = -90, beta, = -199, value = -90
+depth = 3, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -200
+final depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 2, alpha = -200, beta, = -199, value = -110
+final depth = 2, alpha = -110, beta, = -199, value = -110
+depth = 3, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 90
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -10
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+depth = 1, alpha = 199, beta, = 200, value = -110
+final depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 2, alpha = -200, beta, = -199, value = -110
+final depth = 2, alpha = -110, beta, = -199, value = -110
+depth = 3, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 120
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -90
+depth = 1, alpha = 199, beta, = 200, value = -90
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+final depth = 1, alpha = 199, beta, = 200, value = 120
+depth = 2, alpha = -200, beta, = -199, value = -120
+final depth = 2, alpha = -120, beta, = -199, value = -120
+depth = 3, alpha = 199, beta, = 200, value = 120
+depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -90
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+final depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 2, alpha = -200, beta, = -199, value = -110
+final depth = 2, alpha = -110, beta, = -199, value = -110
+depth = 3, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 120
+depth = 1, alpha = 199, beta, = 200, value = 100
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 10
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -90
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+final depth = 1, alpha = 199, beta, = 200, value = 120
+depth = 2, alpha = -200, beta, = -199, value = -120
+final depth = 2, alpha = -120, beta, = -199, value = -120
+depth = 3, alpha = 199, beta, = 200, value = 120
+depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = 0
+depth = 1, alpha = 199, beta, = 200, value = -90
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -100
+depth = 1, alpha = 199, beta, = 200, value = -190
+depth = 1, alpha = 199, beta, = 200, value = -190
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+depth = 1, alpha = 199, beta, = 200, value = -200
+final depth = 1, alpha = 199, beta, = 200, value = 110
+depth = 2, alpha = -200, beta, = -199, value = -110
+final depth = 2, alpha = -110, beta, = -199, value = -110
+depth = 3, alpha = 199, beta, = 200, value = 110
+final depth = 3, alpha = 199, beta, = 200, value = 190
+depth = 1, alpha = -9223372036854775807, beta, = 200, value = 190
+depth = 1, alpha = 190, beta, = 200, value = 100
+depth = 1, alpha = 190, beta, = 200, value = 100
+depth = 1, alpha = 190, beta, = 200, value = 100
+depth = 1, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 200, value = 0
+depth = 1, alpha = 190, beta, = 200, value = -10
+depth = 1, alpha = 190, beta, = 200, value = -10
+depth = 1, alpha = 190, beta, = 200, value = -10
+depth = 1, alpha = 190, beta, = 200, value = -10
+depth = 1, alpha = 190, beta, = 200, value = -10
+depth = 1, alpha = 190, beta, = 200, value = -110
+depth = 1, alpha = 190, beta, = 200, value = -110
+final depth = 1, alpha = 190, beta, = 200, value = 190
+depth = 2, alpha = -200, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = 9223372036854775807, value = -10100
+final depth = 2, alpha = -190, beta, = 9223372036854775807, value = -190
+depth = 3, alpha = -9223372036854775807, beta, = 200, value = 190
+depth = 1, alpha = 190, beta, = 191, value = 190
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+final depth = 1, alpha = 190, beta, = 191, value = 190
+depth = 2, alpha = -191, beta, = -190, value = -190
+final depth = 2, alpha = -190, beta, = -190, value = -190
+depth = 3, alpha = 190, beta, = 200, value = 190
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -210
+final depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 2, alpha = -191, beta, = -190, value = -90
+final depth = 2, alpha = -90, beta, = -190, value = -90
+depth = 3, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -210
+final depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 2, alpha = -191, beta, = -190, value = -90
+final depth = 2, alpha = -90, beta, = -190, value = -90
+depth = 3, alpha = 190, beta, = 200, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -200
+final depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 2, alpha = -191, beta, = -190, value = -110
+final depth = 2, alpha = -110, beta, = -190, value = -110
+depth = 3, alpha = 190, beta, = 200, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 90
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -10
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+depth = 1, alpha = 190, beta, = 191, value = -110
+final depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 2, alpha = -191, beta, = -190, value = -110
+final depth = 2, alpha = -110, beta, = -190, value = -110
+depth = 3, alpha = 190, beta, = 200, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 120
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -90
+depth = 1, alpha = 190, beta, = 191, value = -90
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+final depth = 1, alpha = 190, beta, = 191, value = 120
+depth = 2, alpha = -191, beta, = -190, value = -120
+final depth = 2, alpha = -120, beta, = -190, value = -120
+depth = 3, alpha = 190, beta, = 200, value = 120
+depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -90
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+final depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 2, alpha = -191, beta, = -190, value = -110
+final depth = 2, alpha = -110, beta, = -190, value = -110
+depth = 3, alpha = 190, beta, = 200, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 120
+depth = 1, alpha = 190, beta, = 191, value = 100
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 10
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -90
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+final depth = 1, alpha = 190, beta, = 191, value = 120
+depth = 2, alpha = -191, beta, = -190, value = -120
+final depth = 2, alpha = -120, beta, = -190, value = -120
+depth = 3, alpha = 190, beta, = 200, value = 120
+depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = 0
+depth = 1, alpha = 190, beta, = 191, value = -90
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -100
+depth = 1, alpha = 190, beta, = 191, value = -190
+depth = 1, alpha = 190, beta, = 191, value = -190
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+depth = 1, alpha = 190, beta, = 191, value = -200
+final depth = 1, alpha = 190, beta, = 191, value = 110
+depth = 2, alpha = -191, beta, = -190, value = -110
+final depth = 2, alpha = -110, beta, = -190, value = -110
+depth = 3, alpha = 190, beta, = 200, value = 110
+final depth = 3, alpha = 190, beta, = 200, value = 190
+depth = 4, alpha = -200, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 210
+final depth = 1, alpha = 210, beta, = 190, value = 210
+depth = 2, alpha = -190, beta, = -189, value = -210
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10010
+final depth = 1, alpha = 10010, beta, = 190, value = 10010
+depth = 2, alpha = -190, beta, = -189, value = -10010
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 3, alpha = 189, beta, = 190, value = 200
+final depth = 3, alpha = 200, beta, = 190, value = 200
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 3, alpha = 189, beta, = 190, value = 190
+final depth = 3, alpha = 190, beta, = 190, value = 190
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 2, alpha = -190, beta, = -189, value = -110
+final depth = 2, alpha = -110, beta, = -189, value = -110
+depth = 3, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 3, alpha = 189, beta, = 190, value = 190
+final depth = 3, alpha = 190, beta, = 190, value = 190
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 210
+final depth = 1, alpha = 210, beta, = 190, value = 210
+depth = 2, alpha = -190, beta, = -189, value = -210
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10010
+final depth = 1, alpha = 10010, beta, = 190, value = 10010
+depth = 2, alpha = -190, beta, = -189, value = -10010
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 3, alpha = 189, beta, = 190, value = 200
+final depth = 3, alpha = 200, beta, = 190, value = 200
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 2, alpha = -190, beta, = -189, value = -110
+final depth = 2, alpha = -110, beta, = -189, value = -110
+depth = 3, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 110
+depth = 2, alpha = -190, beta, = -189, value = -110
+final depth = 2, alpha = -110, beta, = -189, value = -110
+depth = 3, alpha = 189, beta, = 190, value = 110
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 190
+final depth = 1, alpha = 190, beta, = 190, value = 190
+depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -190
+depth = 3, alpha = 189, beta, = 190, value = 190
+final depth = 3, alpha = 190, beta, = 190, value = 190
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -190
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -100
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+final depth = 1, alpha = 189, beta, = 190, value = 100
+depth = 2, alpha = -190, beta, = -189, value = -100
+final depth = 2, alpha = -100, beta, = -189, value = -100
+depth = 3, alpha = 189, beta, = 190, value = 100
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = 80
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -20
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+final depth = 1, alpha = 189, beta, = 190, value = 180
+depth = 2, alpha = -190, beta, = -189, value = -180
+final depth = 2, alpha = -180, beta, = -189, value = -180
+depth = 3, alpha = 189, beta, = 190, value = 180
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 10
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = 0
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -10
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -110
+depth = 1, alpha = 189, beta, = 190, value = -200
+depth = 1, alpha = 189, beta, = 190, value = -210
+final depth = 1, alpha = 189, beta, = 190, value = 90
+depth = 2, alpha = -190, beta, = -189, value = -90
+final depth = 2, alpha = -90, beta, = -189, value = -90
+depth = 3, alpha = 189, beta, = 190, value = 90
+depth = 1, alpha = 189, beta, = 190, value = 210
+final depth = 1, alpha = 210, beta, = 190, value = 210
+depth = 2, alpha = -190, beta, = -189, value = -210
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 9900
+final depth = 1, alpha = 9900, beta, = 190, value = 9900
+depth = 2, alpha = -190, beta, = -189, value = -9900
+depth = 1, alpha = 189, beta, = 190, value = 10010
+final depth = 1, alpha = 10010, beta, = 190, value = 10010
+depth = 2, alpha = -190, beta, = -189, value = -10010
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 200
+final depth = 1, alpha = 200, beta, = 190, value = 200
+depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 9990
+final depth = 1, alpha = 9990, beta, = 190, value = 9990
+depth = 2, alpha = -190, beta, = -189, value = -9990
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10000
+final depth = 1, alpha = 10000, beta, = 190, value = 10000
+depth = 2, alpha = -190, beta, = -189, value = -10000
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+depth = 1, alpha = 189, beta, = 190, value = 10100
+final depth = 1, alpha = 10100, beta, = 190, value = 10100
+depth = 2, alpha = -190, beta, = -189, value = -10100
+final depth = 2, alpha = -190, beta, = -189, value = -200
+depth = 3, alpha = 189, beta, = 190, value = 200
+final depth = 3, alpha = 200, beta, = 190, value = 200
+depth = 4, alpha = -190, beta, = 9223372036854775807, value = -200
+final depth = 4, alpha = -190, beta, = 9223372036854775807, value = -190
+
+
+ALL VALUES:
+          0         1         2         3         4         5         6         7         8         9        10        11        12        13        14        15        16        17        18
+0         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+1         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+2         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+3         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+4         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+5         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+6         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+7         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+8         .         .         .         .         .         .         .         .         -200      -190      -200      .         .         .         .         .         .         .         .         
+9         .         .         .         .         .         .         .         .         -190      [7;49;90mB[0m         -190      .         .         .         .         .         .         .         .         
+10        .         .         .         .         .         .         .         .         -200      -190      -200      .         .         .         .         .         .         .         .         
+11        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+12        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+13        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+14        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+15        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+16        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+17        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+18        .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         .         
+__________________
