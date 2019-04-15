@@ -64,6 +64,12 @@ mod tests {
                 let best_move = gameboard.selected_move.unwrap();
                 println!("time for apply mtdf search whith {}-depth= {:?}", depth, timer.elapsed());
                 println!("number of mtdf call whith {}-depth= {:?}", depth, ia.counter);
+                gameboard.make_move(best_move.0,best_move.1, WHITE);
+                print_all_values(&gameboard.cells, &all_values);
+    			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();
+                ia.mtdf(&mut gameboard, BLACK, ia.depth, &mut map_board_values, &mut all_values, BLACK);
+                gameboard.make_move(gameboard.selected_move.unwrap().0,gameboard.selected_move.unwrap().1, BLACK);
+                print_all_values(&gameboard.cells, &all_values);
 
                 let timer = Instant::now();
                 (0..10).for_each(|x| {

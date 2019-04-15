@@ -48,6 +48,7 @@ pub struct Gameboard {
 	pub white_captures: u8,
 	pub upperbound: isize,
 	pub lowerbound: isize,
+	pub is_lower: bool,
 	pub value: isize,
 	pub result: Option<GameResult>,
 }
@@ -66,6 +67,7 @@ impl Gameboard {
 			white_captures: 0,
 			upperbound: std::i64::MAX as isize,
 			lowerbound: std::i64::MIN as isize + 1,
+			is_lower: false,
 			value: 0,
 			result: None,
 		}

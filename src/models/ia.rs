@@ -295,17 +295,22 @@ impl IA {
 
 
 
+// -1 0
+// 120
 
+// state = 
 
 
 	pub fn alphabeta_with_memory(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
-        if /*self.depth != depth &&*/ transposition_table.contains(state) {
-			// *state = transposition_table.get(state).unwrap().clone();
+        if transposition_table.contains(state) {
+			*state = transposition_table.get(state).unwrap().clone();
 			// println!("lower = {}, beta = {}, upper = {}, alpha = {}", state.lowerbound, beta, state.upperbound, alpha);
-            if state.lowerbound >= beta {
+            // state.is_lower && 
+			if state.lowerbound >= beta {
                 return state.lowerbound;
             }
-            if state.upperbound < alpha {
+			// !state.is_lower &&
+            else if  state.upperbound <= alpha {
                 return state.upperbound;
             }
             alpha = max(alpha, state.lowerbound);
@@ -349,21 +354,24 @@ impl IA {
         }
 		// println!("final depth = {}, tmp_alpha = {}, alpha = {}, beta, = {}, value = {}", depth, tmp_alpha, alpha, beta, current);
 		state.selected_move = best_move;
-		let mut tmp_state = state.clone();
         if current <= alpha {
-            tmp_state.lowerbound = current;
-			transposition_table.insert(tmp_state.clone());
-        }
-        if current >= beta {
+			let mut tmp_state = state.clone();
             tmp_state.upperbound = current;
-			transposition_table.insert(tmp_state.clone());
+			tmp_state.is_lower = false;
+			transposition_table.insert(tmp_state);
+        }
+        else if current >= beta {
+			let mut tmp_state = state.clone();
+            tmp_state.lowerbound = current;
+			tmp_state.is_lower = true;
+			transposition_table.insert(tmp_state);
         }
         return current;
     }
 
 	pub fn mtdf(&mut self, state: &mut Gameboard, stone: u8, depth: u8, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) { //On utilise donc en général comme valeur de f la valeur retourné par l’algorithme lors d’une itération précédente
-		let mut upperbound = std::i64::MAX as isize;
-		let mut lowerbound = std::i64::MIN as isize;
+		let mut upperbound = std::i32::MAX as isize;
+		let mut lowerbound = std::i32::MIN as isize;
 		let mut transposition_table: HashSet<Gameboard> = HashSet::new();
 		
 		let mut best_move: Option<(usize, usize)> = None;
