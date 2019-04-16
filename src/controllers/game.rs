@@ -111,9 +111,9 @@ impl GameController {
 			WHITE => &model.white_player,
 			_ => &model.black_player,
 		};
-		if self.counter > 9 {
-			return ;
-		}
+		// if self.counter > 12 {
+		// 	return ;
+		// }
 		self.counter += 1;
 		if let Player::Ia{mut ia, ..} = player {
 			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();		
@@ -135,7 +135,7 @@ impl GameController {
 			match best_move {
 				Some(best_move) => {
 					if model.state.make_move(best_move.0, best_move.1, model.current_stone) {
-						print_all_values(&model.all_state.last().unwrap().cells, &all_values);
+						// print_all_values(&model.all_state.last().unwrap().cells, &all_values);
 						model.all_state.push(model.state.clone());
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();

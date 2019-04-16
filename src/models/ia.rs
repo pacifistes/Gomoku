@@ -305,16 +305,20 @@ impl IA {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
 			// println!("lower = {}, beta = {}, upper = {}, alpha = {}", state.lowerbound, beta, state.upperbound, alpha);
-            // state.is_lower && 
-			if state.lowerbound >= beta {
-                return state.lowerbound;
-            }
-			// !state.is_lower &&
-            else if  state.upperbound <= alpha {
+            // // 
+			// if state.is_lower && state.lowerbound >= beta {
+            //     return state.lowerbound;
+            // }
+			// // // 
+            if !state.is_lower && state.upperbound <= alpha {
                 return state.upperbound;
             }
-            alpha = max(alpha, state.lowerbound);
-            beta = min(beta, state.upperbound);
+			// if !state.is_lower {
+	        //     alpha = max(alpha, state.lowerbound);
+			// }
+			// else {
+	        //     beta = min(beta, state.upperbound);
+			// }
         }
 		if depth == 0 || state.is_finish() {
 			let mut score = state.value;
@@ -375,6 +379,8 @@ impl IA {
 		let mut transposition_table: HashSet<Gameboard> = HashSet::new();
 		
 		let mut best_move: Option<(usize, usize)> = None;
+		state.upperbound = upperbound;
+		state.lowerbound = lowerbound;
 		while lowerbound < upperbound {
 			let beta: isize = match lowerbound {
 				elem if self.g == elem	=> self.g + 1,
