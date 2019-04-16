@@ -21,7 +21,6 @@ pub struct GameController {
 	pub view: GameView,
 	events: HashMap<Id, GameEvent>,
 	pub map_board_values: HashMap<[u64; SIZE], isize>,
-	pub counter: usize,
 }
 
 impl GameController {
@@ -69,7 +68,6 @@ impl GameViewController for GameController {
 			view,
 			events: HashMap::new(),
 			map_board_values: HashMap::new(),
-			counter: 0,
 		};
 		controller.set_events(widget_ids);
 		Box::new(controller)
@@ -111,10 +109,6 @@ impl GameController {
 			WHITE => &model.white_player,
 			_ => &model.black_player,
 		};
-		// if self.counter > 12 {
-		// 	return ;
-		// }
-		self.counter += 1;
 		if let Player::Ia{mut ia, ..} = player {
 			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();		
 			let best_move: Option<(usize, usize)> = if model.all_state.len() == 1 {
@@ -123,13 +117,7 @@ impl GameController {
 				Some((position, position))
 			}
 			else {
-				ia.counter = 0;
-				// ia.alphabeta(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				// ia.negascout(&mut model.state, 	model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
-				let mut transposition_table: HashSet<Gameboard> = HashSet::new();
-				// ia.alphabeta_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
-				// ia.negascout_tt(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut all_values, model.current_stone);
+				ia.negascout(&mut model.state, 	model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
 				model.state.selected_move
 			};
 			match best_move {
@@ -140,14 +128,8 @@ impl GameController {
 						model.current_stone = opposite_stone!(model.current_stone);
 						model.update_last_move_time();
 					}
-					else {
-						println!("je passe {} | {}", best_move.0, best_move.1);
-					}
 				}
-				None => {
-					println!("je passe");
-					model.state.result = Some(GameResult::Equality);
-				},
+				None => model.state.result = Some(GameResult::Equality),
 			};
 		}
 	}
