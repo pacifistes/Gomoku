@@ -117,7 +117,8 @@ impl GameController {
 				Some((position, position))
 			}
 			else {
-				ia.negascout(&mut model.state, 	model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				// ia.negascout(&mut model.state, 	model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
+				ia.mtdf(&mut model.state, 	model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
 				model.state.selected_move
 			};
 			match best_move {

@@ -288,8 +288,8 @@ impl PartialEq for Gameboard {
 impl Hash for Gameboard {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.cells.hash(state);
-        // self.black_captures.hash(state);
-        // self.white_captures.hash(state);
+        self.black_captures.hash(state);
+        self.white_captures.hash(state);
     }
 }
 
