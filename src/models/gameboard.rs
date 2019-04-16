@@ -1,10 +1,24 @@
 use crate::models::game::GameResult;
+use crate::eval::*;
+use crate::models::ia::IA;
 use crate::eval::evale_one_line;
 use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
+use std::collections::HashMap;
 
 /// Size of game board.
+#[cfg(feature = "size13")]
+pub const SIZE: usize = 13;
+
+#[cfg(feature = "size15")]
+pub const SIZE: usize = 15;
+
+#[cfg(feature = "size17")]
+pub const SIZE: usize = 17;
+
+#[cfg(not(any(feature = "size13", feature = "size15", feature = "size17")))]
 pub const SIZE: usize = 19;
+
 
 pub const NOPE: u8 = 0b00;
 pub const BLACK: u8 = 0b01;
@@ -16,8 +30,6 @@ pub const MY_DIRECTIONS: [(isize, isize); 4] = [(0, 1), (1, 0), (1, 1), (1, -1)]
 pub const WHITE_CAPTURE: u8 = WHITE | BLACK << 2 | BLACK << 4 | WHITE << 6;
 pub const BLACK_CAPTURE: u8 = BLACK | WHITE << 2 | WHITE << 4 | BLACK << 6;
 
-pub const BLACK_5_ALIGN: u16 = BLACK as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (BLACK as u16) << 8;
-pub const WHITE_5_ALIGN: u16 = WHITE as u16 | (WHITE as u16) << 2 | (WHITE as u16) << 4 | (WHITE as u16) << 6 | (WHITE as u16) << 8;
 pub const BLACK_TREES: [u16; 4] = [
 	NOPE as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (BLACK as u16) << 6 | (NOPE as u16) << 8 | (NOPE as u16) << 10,
 	NOPE as u16 | (BLACK as u16) << 2 | (BLACK as u16) << 4 | (NOPE as u16) << 6 | (BLACK as u16) << 8 | (NOPE as u16) << 10,
@@ -51,6 +63,7 @@ pub struct Gameboard {
 	pub is_lower: bool,
 	pub value: isize,
 	pub result: Option<GameResult>,
+	pub waiting_winning_move: Option<(usize, usize)>,
 }
 
 impl Gameboard {
@@ -70,6 +83,7 @@ impl Gameboard {
 			is_lower: false,
 			value: 0,
 			result: None,
+			waiting_winning_move: None,
 		}
 	}
 
@@ -151,21 +165,24 @@ impl Gameboard {
 	}
 
 	pub fn make_move(&mut self, x: usize, y: usize, stone: u8) -> bool {
+		let tmp_state = self.clone();
 		if !self.is_finish() && get_stone!(self.cells[x], y) == NOPE {
 			self.cells[x] |= set_stone!(y, stone);
 			self.update_neighbors(x as isize, y as isize, stone);
-			if self.try_make_move(x as isize, y as isize, stone) {
-				self.update_result(x as isize, y as isize);
+			if self.try_make_move(x as isize, y as isize, stone) && self.update_result(x, y, stone) {
 				self.update_possible_move(x as isize, y as isize);
 				self.last_move = Some((x, y));
 				self.selected_move = None;
 				return true;
 			}
-			self.clear_stone(x, y);
-			// self.cells[x] &= clear_stone!(y);
+			*self = tmp_state;
         }
         false
     }
+
+	// pub fn unmake_move(&mut self, x: usize, y: usize) {
+    //     self.cells[x] &= clear_stone!(y);
+    // }
 	
 	pub fn update_possible_move(&mut self, x: isize, y: isize) {
 		let min_x = (x - 1).max(0) as usize;
@@ -200,6 +217,7 @@ impl Gameboard {
 	pub fn clear_stone(&mut self, x: usize, y: usize) {
 		self.cells[x] &= clear_stone!(y);
 		self.update_neighbors(x as isize, y as isize, NOPE);
+		self.possible_moves[x] |= set_move!(y);
 	}
 
 	pub fn update_neighbors(&mut self, x: isize, y: isize, stone: u8) {
@@ -233,43 +251,52 @@ impl Gameboard {
 		})
 	}
 
-	pub fn update_result(&mut self, x: isize, y: isize) {
+	pub fn update_result(&mut self, x: usize, y: usize, stone: u8) -> bool {
 		if self.black_captures >= 10 {
+			self.waiting_winning_move = None;
 			self.result = Some(GameResult::BlackWin);
 			self.value = -10000000;
 		}
 		else if self.white_captures >= 10 {
+			self.waiting_winning_move = None;
 			self.result = Some(GameResult::WhiteWin);
 			self.value = 10000000;
 		}
 		else {
+			if let Some(winning_move) = self.waiting_winning_move {
+				if winning_move != (x, y) {
+					let mut tmp_result = self.result.clone();
+					self.result = None;
+					self.update_result(winning_move.0, winning_move.1, stone);
+					if (self.result == tmp_result) {
+						return false;
+					}
+					else {
+					}
+					self.waiting_winning_move = None;
+				}
+			}
 			let directions: [(isize, isize); 4] = NEIGHBORS_DIRECTIONS;
 			directions.iter().enumerate().any(|(i, dir)| {
-				let mut j = 0;
-				while j < 5 {
-					let tmp_x = x + dir.0 * j;
-					let tmp_y = y + dir.1 * j;
+				(0..5).any(|j| {
+					let tmp_x = x as isize + dir.0 * j;
+					let tmp_y = y as isize + dir.1 * j;
 					if (tmp_x < 0 || tmp_y < 0 || tmp_y >= SIZE as isize) {
-						break;
+						return false;
 					}
 					match (self.lines[tmp_x as usize][tmp_y as usize][i].representation & 0b11_11_11_11_11) {
 						WHITE_5_ALIGN => {
-							self.result = Some(GameResult::WhiteWin);
-							return true;
-							// check_winning!(self, x, y, GameResult::WhiteWin, stone)
+							check_winning!(self, x, y, GameResult::WhiteWin, stone)
 						},
 						BLACK_5_ALIGN => {
-							self.result = Some(GameResult::BlackWin);
-							return true;
-							// check_winning!(self, x, y, GameResult::BlackWin, stone)
+							check_winning!(self, x, y, GameResult::BlackWin, stone)
 						},
-						_ => (),
+						_ => false,
 					}
-					j += 1;
-				}
-				false
+				})
 			});
 		}
+		true
 	}
 }
 

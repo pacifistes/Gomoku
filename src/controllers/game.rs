@@ -32,7 +32,6 @@ impl GameController {
 				model.update_last_move_time();
 			}
         }));
-
 		self.events.insert(widget_ids.button_undo, GameEvent::ButtonUndo(|model: &mut Game| {
 			match model.game_mode {
 				GameMode::PlayerVsPlayer => {
@@ -40,7 +39,6 @@ impl GameController {
 						model.all_state.pop();
 						model.state = model.all_state.last().unwrap().clone();
 						model.current_stone = opposite_stone!(model.current_stone);
-						model.state.result = None;
 					}
 				},
 				_ => {
@@ -48,7 +46,6 @@ impl GameController {
 						model.all_state.pop();
 						model.all_state.pop();
 						model.state = model.all_state.last().unwrap().clone();
-						model.state.result = None;
 					}
 				}
 			}
@@ -109,16 +106,19 @@ impl GameController {
 			WHITE => &model.white_player,
 			_ => &model.black_player,
 		};
+
 		if let Player::Ia{mut ia, ..} = player {
-			let mut all_values: HashMap<(usize, usize), isize> = HashMap::new();		
 			let best_move: Option<(usize, usize)> = if model.all_state.len() == 1 {
-				let new_state = model.state.clone();
+				// let new_state = model.state.clone();
 				let position = SIZE / 2;
 				Some((position, position))
 			}
 			else {
-				// ia.negascout(&mut model.state, 	model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize,  &mut self.map_board_values, &mut all_values, model.current_stone);
-				ia.mtdf(&mut model.state, 	model.current_stone, ia.depth, &mut self.map_board_values, &mut all_values, model.current_stone);
+				model.all_values.clear();
+				ia.g = 0;
+				// ia.mtdf(&mut model.state, model.current_stone, ia.depth, &mut self.map_board_values, &mut model.all_values, model.current_stone);
+				ia.negascout(&mut model.state, model.current_stone, ia.depth, (std::i64::MIN + 1) as isize, std::i64::MAX as isize, &mut self.map_board_values, &mut model.all_values, model.current_stone);
+				// ia.alphabeta(&mut model.state, &mut transposition_table, model.current_stone, ia.depth, isize::from(std::i16::MIN), isize::from(std::i16::MAX));
 				model.state.selected_move
 			};
 			match best_move {
@@ -130,7 +130,7 @@ impl GameController {
 						model.update_last_move_time();
 					}
 				}
-				None => model.state.result = Some(GameResult::Equality),
+				None => model.state.result = Some(GameResult::Equality),//(),// print_all_state(&model.all_state),//println!("banana"),
 			};
 		}
 	}

@@ -55,7 +55,14 @@ impl IA {
 		possible_boards
 	}
 
-	pub fn negascout(&mut self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	/// si alpha < current < beta, alors current est la valeur minimax
+    /// si current <= alpha, alors la vraie valeur minimax m vérifie : m <= current <= alpha
+    /// si beta <= current alors la vraie valeur minimax m vérifie : beta <= current <= m
+	pub fn negascout(&mut self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>, player_stone: u8) -> isize {
+        // if depth % 2 == 0 && transposition_table.contains(state) {
+		// 	state.value = transposition_table.get(state).unwrap().value;			
+		// 	return state.value
+		// }
 		if depth == 0 || state.is_finish() {
 			let mut score = state.value;
 			score *= depth as isize + 1;
@@ -79,7 +86,7 @@ impl IA {
                 score = -self.negascout(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values, all_values, player_stone);
             }
 			if depth == self.depth {
-				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+				all_values.push((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1, score));
 			}
 			i += 1;
             if score > current {
@@ -96,7 +103,7 @@ impl IA {
         current
     }
 
-	pub fn alphabeta(&mut self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	pub fn alphabeta(&mut self, state: &mut Gameboard, stone: u8, depth: u8, mut alpha: isize, beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>,  player_stone: u8) -> isize {
 		if depth == 0 || state.is_finish() {
 			let mut score = state.value;
 			score *= depth as isize + 1;
@@ -115,7 +122,7 @@ impl IA {
         for mut new_state in possible_states {
 			let score = -self.alphabeta(&mut new_state, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values, all_values, player_stone);
 			if depth == self.depth {
-				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+				all_values.push((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1, score));
 			}
             if score > current {
                 current = score;
@@ -130,7 +137,7 @@ impl IA {
         current
     }
 
-	pub fn alphabeta_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	pub fn alphabeta_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>,  player_stone: u8) -> isize {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
             if state.lowerbound >= beta {
@@ -162,7 +169,7 @@ impl IA {
         for mut new_state in possible_states {
             let score = -self.alphabeta_tt(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values, all_values, player_stone);
 			if depth == self.depth {
-				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+				all_values.push((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1, score));
 			}
             if score > current {
                 current = score;
@@ -185,7 +192,7 @@ impl IA {
         return current;
     }
 
-	pub fn negascout_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	pub fn negascout_tt(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>,  player_stone: u8) -> isize {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
             if state.lowerbound >= beta {
@@ -221,7 +228,7 @@ impl IA {
                 score = -self.negascout_tt(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -alpha, map_board_values, all_values, player_stone);
             }
 			if depth == self.depth {
-				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+				all_values.push((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1, score));
 			}
             if score > current {
                 current = score;
@@ -244,7 +251,7 @@ impl IA {
         return current;
     }
 
-	pub fn alphabeta_with_memory(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) -> isize {
+	pub fn alphabeta_with_memory(&mut self, state: &mut Gameboard, transposition_table: &mut HashSet<Gameboard>, stone: u8, depth: u8, mut alpha: isize, mut beta: isize, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>,  player_stone: u8) -> isize {
         if transposition_table.contains(state) {
 			*state = transposition_table.get(state).unwrap().clone();
 			if state.is_lower && state.lowerbound >= beta {
@@ -280,7 +287,7 @@ impl IA {
         for mut new_state in possible_states {
             let score = -self.alphabeta_with_memory(&mut new_state, transposition_table, opposite_stone!(stone), depth - 1, -beta, -tmp_alpha, map_board_values, all_values, player_stone);
 			if depth == self.depth {
-				all_values.insert((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1), score);
+				all_values.push((new_state.last_move.unwrap().0, new_state.last_move.unwrap().1, score));
 			}
             if score > current {
                 current = score;
@@ -307,7 +314,7 @@ impl IA {
         return current;
     }
 
-	pub fn mtdf(&mut self, state: &mut Gameboard, stone: u8, depth: u8, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut HashMap<(usize, usize), isize>,  player_stone: u8) { //On utilise donc en général comme valeur de f la valeur retourné par l’algorithme lors d’une itération précédente
+	pub fn mtdf(&mut self, state: &mut Gameboard, stone: u8, depth: u8, map_board_values: &mut HashMap<[u64; SIZE], isize>, all_values: &mut Vec<(usize, usize, isize)>,  player_stone: u8) { //On utilise donc en général comme valeur de f la valeur retourné par l’algorithme lors d’une itération précédente
 		let mut upperbound = std::i32::MAX as isize;
 		let mut lowerbound = std::i32::MIN as isize;
 		let mut transposition_table: HashSet<Gameboard> = HashSet::new();

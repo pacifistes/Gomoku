@@ -59,11 +59,13 @@ pub struct Game {
     pub change_window: bool,
     pub game_mode: GameMode,
     timer: Instant,
+    pub show_all_values: bool,
+	pub all_values: Vec<(usize, usize, isize)>,
 }
 
 impl Game {
     /// Creates a new game board.
-    pub fn new(black_player: Player, white_player: Player, game_mode: &str) -> Game {
+    pub fn new(black_player: Player, white_player: Player, game_mode: &str, display_weight: bool) -> Game {
         let start_state = Gameboard::new();
         Game {
             state: start_state.clone(),
@@ -75,14 +77,17 @@ impl Game {
             change_window: false,
             game_mode: GameMode::new(game_mode),
             timer: Instant::now(),
+			show_all_values: display_weight,
+			all_values: Vec::new(),
         }
     }
 
     /// Creates a new game with an already existing Game. 
-    pub fn new_with_game(mut game: Game, black_player: Player, white_player: Player, game_mode: &str) -> Game {
+    pub fn new_with_game(mut game: Game, black_player: Player, white_player: Player, game_mode: &str, display_weight: bool) -> Game {
         game.black_player = black_player;
         game.white_player = white_player;
         game.game_mode = GameMode::new(game_mode);
+		game.show_all_values = display_weight;
         game.change_window = false;
         game
     }
