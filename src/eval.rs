@@ -43,7 +43,7 @@ const THREE_WHITE_OPEN_HOLE2: u16 =	0b00_10_10_00_10_00;
 pub const BLACK_5_ALIGN: u16 =		0b00_01_01_01_01_01;
 pub const WHITE_5_ALIGN: u16 =		0b00_10_10_10_10_10;
 
-pub fn evale_one_line(mut line: u64, arr_priority: & mut[u16; 13]) -> isize {
+pub fn eval_one_line(mut line: u64, arr_priority: & mut[u16; 13]) -> isize {
 	let mut value = 0;
 	let mut j: isize;
 
@@ -229,7 +229,7 @@ pub fn eval(state: &mut Gameboard, actual_stone: u8, depth: u8, map_board_values
 		all.extend(all_diag_1);
 		all.extend(all_diag_2);
 		all.retain(|&elem| elem != 0);
-		let mut value = all.iter().map(|&e| evale_one_line(e, &mut arr_priority)).sum();
+		let mut value = all.iter().map(|&e| eval_one_line(e, &mut arr_priority)).sum();
 		value += priority_value(&mut arr_priority, &mut new_priority, actual_stone);
 		state.priority = new_priority;
 		map_board_values.insert(state.cells, value);
