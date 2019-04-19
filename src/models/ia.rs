@@ -10,7 +10,7 @@ pub struct IA {
 
 	pub fn filter_boards(possible_boards: Vec<Gameboard>, stone: u8, actual_depth: u8, orig_depth: u8) -> Vec<Gameboard> {
 		let closure = |board: &Gameboard| {
-			if (stone == BLACK && 
+			if (stone == BLACK &&
 				(board.priority == Priority::BlackWin
 				|| board.priority == Priority::BlackWin1
 				|| board.priority == Priority::BlackWin2))
@@ -25,7 +25,7 @@ pub struct IA {
 				}
 		};
 		if possible_boards.iter().filter(|board| closure(board)).count() > 0 {
-			let mut final_possible_board: Vec<Gameboard> = possible_boards.into_iter().filter_map(|board| { 
+			let mut final_possible_board: Vec<Gameboard> = possible_boards.into_iter().filter_map(|board| {
 					if closure(&board) {
 						Some(board)
 					}
@@ -39,9 +39,9 @@ pub struct IA {
 		else {
 			let mut final_possible_board = possible_boards;
 			final_possible_board.sort_by(|board, other| board.value.cmp(&other.value));
-			let t = [60, 55, 55, 55, 45, 30, 30, 20, 20, 15];
+			let cutoff = [60, 55, 40, 20, 20, 20, 20, 20, 10, 10];
 			if orig_depth >= 5 {
-				final_possible_board[0..(final_possible_board.len() * t[(orig_depth - actual_depth) as usize] / 100)].to_vec()
+				final_possible_board[0..(final_possible_board.len() * cutoff[(orig_depth - actual_depth) as usize] / 100)].to_vec()
 			} else {
 				final_possible_board
 			}
